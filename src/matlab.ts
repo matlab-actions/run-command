@@ -2,7 +2,7 @@
 
 import * as core from "@actions/core";
 import * as exec from "@actions/exec";
-import * as fs from "fs";
+import { promises as fs } from "fs";
 import * as os from "os";
 import * as path from "path";
 import { v4 as uuid } from "uuid";
@@ -23,7 +23,7 @@ export async function runCommand(workspaceDir: string, command: string) {
     await core.group("Run command", async () => {
         const ext = process.platform === "win32" ? "bat" : "sh";
         const rmcPath = path.join(__dirname, "bin", `run_matlab_command.${ext}`);
-        await fs.promises.chmod(rmcPath, 0o777);
+        await fs.chmod(rmcPath, 0o777);
 
         const rmcArg = script.cdAndCall(tempScript.dir, tempScript.command);
 
@@ -37,12 +37,10 @@ export async function runCommand(workspaceDir: string, command: string) {
 export async function generateScript(workspaceDir: string, command: string): Promise<HelperScript> {
     const scriptName = script.safeName(`command_${uuid()}`);
 
-    const temporaryDirectory = await fs.promises.mkdtemp(
-        path.join(os.tmpdir(), "run_matlab_command-")
-    );
+    const temporaryDirectory = await fs.mkdtemp(path.join(os.tmpdir(), "run_matlab_command-"));
 
     const scriptPath = path.join(temporaryDirectory, scriptName + ".m");
-    await fs.promises.writeFile(scriptPath, script.cdAndCall(workspaceDir, command), {
+    await fs.writeFile(scriptPath, script.cdAndCall(workspaceDir, command), {
         encoding: "utf8",
     });
 
