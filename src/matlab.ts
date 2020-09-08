@@ -1,7 +1,5 @@
 // Copyright 2020 The MathWorks, Inc.
 
-import * as core from "@actions/core";
-import * as exec from "@actions/exec";
 import { promises as fs } from "fs";
 import * as os from "os";
 import * as path from "path";
@@ -13,26 +11,7 @@ export interface HelperScript {
     command: string;
 }
 
-export async function runCommand(workspaceDir: string, command: string) {
-    const tempScript = await core.group("Generate script", async () => {
-        const tempScript = await generateScript(workspaceDir, command);
-        core.info("Sucessfully generated script");
-        return tempScript;
-    });
-
-    await core.group("Run command", async () => {
-        const ext = process.platform === "win32" ? "bat" : "sh";
-        const rmcPath = path.join(__dirname, "bin", `run_matlab_command.${ext}`);
-        await fs.chmod(rmcPath, 0o777);
-
-        const rmcArg = script.cdAndCall(tempScript.dir, tempScript.command);
-
-        const exitCode = await exec.exec(rmcPath, [rmcArg]);
-        if (exitCode !== 0) {
-            return Promise.reject(Error(`Exited with non-zero code ${exitCode}`));
-        }
-    });
-}
+export type ExecFn = (command: string, args?: string[]) => Promise<number>;
 
 export async function generateScript(workspaceDir: string, command: string): Promise<HelperScript> {
     const scriptName = script.safeName(`command_${uuid()}`);
@@ -45,4 +24,22 @@ export async function generateScript(workspaceDir: string, command: string): Pro
     });
 
     return { dir: temporaryDirectory, command: scriptName };
+}
+
+export async function runCommand(hs: HelperScript, platform: string, fn: ExecFn): Promise<void> {
+    const rmcPath = getRmcPath(platform);
+    await fs.chmod(rmcPath, 0o777);
+
+    const rmcArg = script.cdAndCall(hs.dir, hs.command);
+
+    const exitCode = await fn(rmcPath, [rmcArg]);
+    if (exitCode !== 0) {
+        return Promise.reject(Error(`Exited with non-zero code ${exitCode}`));
+    }
+}
+
+export function getRmcPath(platform: string): string {
+    const ext = platform === "win32" ? "bat" : "sh";
+    const rmcPath = path.join(__dirname, "bin", `run_matlab_command.${ext}`);
+    return rmcPath;
 }
