@@ -8,7 +8,10 @@ import * as path from "path";
 import { v4 as uuid } from "uuid";
 import * as script from "./script";
 
-export type TempScript = { dir: string; name: string };
+export interface HelperScript {
+    dir: string;
+    command: string;
+}
 
 export async function runCommand(workspaceDir: string, command: string) {
     const tempScript = await core.group("Generate script", async () => {
@@ -22,7 +25,7 @@ export async function runCommand(workspaceDir: string, command: string) {
         const rmcPath = path.join(__dirname, "bin", `run_matlab_command.${ext}`);
         await fs.promises.chmod(rmcPath, 0o777);
 
-        const rmcArg = script.cdAndCall(tempScript.dir, tempScript.name);
+        const rmcArg = script.cdAndCall(tempScript.dir, tempScript.command);
 
         const exitCode = await exec.exec(rmcPath, [rmcArg]);
         if (exitCode !== 0) {
@@ -31,7 +34,7 @@ export async function runCommand(workspaceDir: string, command: string) {
     });
 }
 
-export async function generateScript(workspaceDir: string, command: string): Promise<TempScript> {
+export async function generateScript(workspaceDir: string, command: string): Promise<HelperScript> {
     const scriptName = script.safeName(`command_${uuid()}`);
 
     const temporaryDirectory = await fs.promises.mkdtemp(
@@ -43,5 +46,5 @@ export async function generateScript(workspaceDir: string, command: string): Pro
         encoding: "utf8",
     });
 
-    return { dir: temporaryDirectory, name: scriptName };
+    return { dir: temporaryDirectory, command: scriptName };
 }
