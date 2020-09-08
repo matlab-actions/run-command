@@ -1,7 +1,8 @@
 // Copyright 2020 The MathWorks, Inc.
 
-import * as matlab from "./matlab";
 import { promises as fs } from "fs";
+import * as path from "path";
+import * as matlab from "./matlab";
 
 afterEach(() => {
     jest.resetAllMocks();
@@ -52,4 +53,72 @@ describe("script generation", () => {
         expect(mkdtemp).toHaveBeenCalledTimes(1);
         expect(writeFile).toHaveBeenCalledTimes(1);
     });
+});
+
+describe("run command", () => {
+    const helperScript = { dir: "/home/sweet/home", command: "disp('hello, world');" };
+    const platform = "win32";
+
+    it("ideally works", async () => {
+        const chmod = jest.spyOn(fs, "chmod");
+        const execFn = jest.fn();
+
+        chmod.mockResolvedValue(undefined);
+        execFn.mockResolvedValue(0);
+
+        const actual = matlab.runCommand(helperScript, platform, execFn);
+        await expect(actual).resolves.toBeUndefined();
+    });
+
+    it("fails when chmod fails", async () => {
+        const chmod = jest.spyOn(fs, "chmod");
+        const execFn = jest.fn();
+
+        chmod.mockRejectedValue(null);
+
+        const actual = matlab.runCommand(helperScript, platform, execFn);
+        await expect(actual).rejects.toBeDefined();
+        expect(chmod).toHaveBeenCalledTimes(1);
+        expect(execFn).not.toHaveBeenCalled();
+    });
+
+    it("fails when the execFn fails", async () => {
+        const chmod = jest.spyOn(fs, "chmod");
+        const execFn = jest.fn();
+
+        chmod.mockResolvedValue(undefined);
+        execFn.mockRejectedValue(null);
+
+        const actual = matlab.runCommand(helperScript, platform, execFn);
+        await expect(actual).rejects.toBeDefined();
+        expect(chmod).toHaveBeenCalledTimes(1);
+        expect(execFn).toHaveBeenCalledTimes(1);
+    });
+
+    it("fails when the execFn has a non-zero exit code", async () => {
+        const chmod = jest.spyOn(fs, "chmod");
+        const execFn = jest.fn();
+
+        chmod.mockResolvedValue(undefined);
+        execFn.mockResolvedValue(1);
+
+        const actual = matlab.runCommand(helperScript, platform, execFn);
+        await expect(actual).rejects.toBeDefined();
+        expect(chmod).toHaveBeenCalledTimes(1);
+        expect(execFn).toHaveBeenCalledTimes(1);
+    });
+});
+
+describe("ci helper path", () => {
+    const testCase = (platform: string, ext: string) => {
+        it(`considers the appropriate script on ${platform}`, () => {
+            const actualPath = matlab.getRmcPath(platform);
+            const actualExt = path.extname(actualPath);
+            expect(actualExt).toMatch(ext);
+        });
+    };
+
+    testCase("win32", "bat");
+    testCase("darwin", "sh");
+    testCase("linux", "sh");
 });
