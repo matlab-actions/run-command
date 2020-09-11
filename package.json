@@ -7,6 +7,7 @@
         "format": "prettier --write .",
         "format-check": "prettier --check .",
         "build": "tsc",
+        "deps": "bash ./scripts/setupdeps.sh",
         "package": "ncc build --minify",
         "test": "jest",
         "all": "npm run build && npm run package"
