@@ -4,7 +4,9 @@ import * as core from "@actions/core";
 import * as exec from "@actions/exec";
 import * as matlab from "./matlab";
 
-export async function run() {
+export { matlab };
+
+async function run() {
     const platform = process.platform;
     const workspaceDir = process.cwd();
     const command = core.getInput("command");
