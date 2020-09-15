@@ -1,0 +1,25 @@
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - run: npm install
+      - run: npm run all
+      - run: git add --force dist lib && git push
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout setup-matlab-action repo
+        uses: actions/checkout@v2
+      - name: Perform 'setup-matlab-action'
+        uses: mathworks-continuous-integration/setup-matlab-action
+        env:
+          MATHWORKS_TOKEN: ${{ secrets.MATHWORKS_TOKEN }}
+      - name: Run Sample MATLAB Command
+        uses: ./
+        with:
+          command: "disp('hello world');"
