@@ -1,49 +1,39 @@
 on: [push]
 
 jobs:
-  build:
+  test-build-push:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout run-matlab-command-action
         uses: actions/checkout@v2
-      - name: Configure private dependencies
-        run: |
-          mkdir ~/.ssh
-          echo "${{ secrets.BUILD_ACTION_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -t rsa -H github.com >> ~/.ssh/known_hosts
+        with:
+          ssh-key: ${{ secrets.BUILD_ACTION_KEY }}
       - name: Perform npm tasks
-        run: |
-          npm install
-          npm run all
+        run: npm run ci
+
+      - name: Checkout setup-matlab-action
+        uses: actions/checkout@v2
+        with:
+          repository: mathworks-continuous-integration/setup-matlab-action
+          ref: jpereira/initial
+          path: setup-matlab-action
+          ssh-key: ${{ secrets.SETUP_MATLAB_COMMAND_KEY }}
+      - name: Perform 'setup-matlab-action'
+        uses: ./setup-matlab-action
+        env:
+          MATHWORKS_TOKEN: ${{ secrets.MATHWORKS_TOKEN }}
+
+      - name: Exercise RunMATLABCommand
+        uses: ./
+        with:
+          command: "disp('hello world');"
+
       - name: Push build
         run: |
           git config user.name 'Build Action'
           git config user.email '<>'
 
           git add --force dist lib
-          git commit --allow-empty -m "Build for $(git log --pretty=format:'%h' -n 1)"
+          git commit --allow-empty -m "Build for $(git log --pretty=format:'%h' -n 1) [skip ci]"
           git push
-
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout setup-matlab-action repo
-        uses: actions/checkout@v2
-      - name: Initial setup to access setup-matlab-action
-        run: |
-          mkdir ~/.ssh
-          echo "${{ secrets.SETUP_MATLAB_COMMAND_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -t rsa -H github.com >> ~/.ssh/known_hosts
-
-          git clone --single-branch --branch jpereira/initial git@github.com:mathworks-continuous-integration/setup-matlab-action.git ./setup-matlab-action
-      - name: Perform 'setup-matlab-action'
-        uses: ./setup-matlab-action
-        env:
-          MATHWORKS_TOKEN: ${{ secrets.MATHWORKS_TOKEN }}
-      - name: Run Sample MATLAB Command
-        uses: ./
-        with:
-          command: "disp('hello world');"

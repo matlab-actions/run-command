@@ -5,13 +5,15 @@
     "description": "",
     "main": "lib/index.js",
     "scripts": {
+        "clean": "rm -rf dist lib",
         "format": "prettier --write .",
         "format-check": "prettier --check .",
         "build": "tsc",
         "deps": "bash ./scripts/setupdeps.sh",
         "package": "ncc build --minify",
         "test": "jest",
-        "all": "npm run build && npm run package"
+        "all": "npm test && npm run build && npm run package",
+        "ci": "npm run clean && npm run deps && npm run ci && npm run all"
     },
     "files": [
         "lib/"
