@@ -1,14 +1,15 @@
+name: Build and Test
 on: [push]
 
 jobs:
-  test-build-push:
-    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+  bat:
+    name: Build and Test
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout run-matlab-command-action
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
         with:
-          ssh-key: ${{ secrets.BUILD_ACTION_KEY }}
+          node-version: '12'
       - name: Perform npm tasks
         run: npm run ci
 
@@ -28,12 +29,3 @@ jobs:
         uses: ./
         with:
           command: "disp('hello world');"
-
-      - name: Push build
-        run: |
-          git config user.name 'Build Action'
-          git config user.email '<>'
-
-          git add --force dist lib
-          git commit --allow-empty -m "Build for $(git log --pretty=format:'%h' -n 1) [skip ci]"
-          git push
