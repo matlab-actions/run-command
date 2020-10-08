@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: mathworks-continuous-integration/setup-matlab-action
-          ref: jpereira/initial
+          ref: v0.1.0
           path: setup-matlab-action
           ssh-key: ${{ secrets.SETUP_MATLAB_COMMAND_KEY }}
       - name: Perform 'setup-matlab-action'
