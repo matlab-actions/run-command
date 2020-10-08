@@ -1,7 +1,7 @@
-# Run MATLAB Command
+# Run MATLAB® Command
 
 This action executes a MATLAB script, function, or statement using the _first_
-MATLAB on the runner's system `PATH`.
+MATLAB version on the runner's system `PATH`.
 
 MATLAB exits with exit code 0 if the specified script, function, or statement
 executes successfully without error. Otherwise, MATLAB terminates with a nonzero
@@ -11,13 +11,15 @@ exit code, which causes the build to fail. You can use the
 the command to ensure that builds fail when necessary. When you use this task,
 all of the required files must be on the MATLAB search path.
 
+## Usage
+
 You can use this action `with`:
 | Argument  | Description |
 |-----------|-------------|
 | `command` | (Required) Script, function, or statement to execute. <br/> If the value of `command` is the name of a MATLAB script or function, do not specify the file extension. If you specify more than one MATLAB command, use a comma or semicolon to separate the commands. <br/> **Example**: `myscript` <br/> **Example**: `results = runtests, assertSuccess(results);`
 
 ### Using a GitHub-hosted runner?
-If you are using a GitHub-hosted runner, you can use the [Set up MATLAB action](https://github.com/mathworks/) to install MATLAB on the runner.
+If you are using a GitHub-hosted runner, you can use the [Set up MATLAB action](https://github.com/mathworks/setup-matlab-action/) to install MATLAB on the runner.
 
 ## Example
 
@@ -40,9 +42,9 @@ jobs:
 ```
 
 ## See also
-- [Set up MATLAB action](https://github.com/mathworks/)
+- [Set up MATLAB action](https://github.com/mathworks/setup-matlab-action/)
 - [Run MATLAB Tests](https://github.com/mathworks/run-matlab-tests-action/)
-- [Continuous Integration (CI) - MATLAB & Simulink](https://www.mathworks.com/help/matlab/continuous-integration.html)
+- [Continuous Integration - MATLAB & Simulink](https://www.mathworks.com/solutions/continuous-integration.html)
 
 ## Contact Us
 If you have any questions or suggestions, please contact MathWorks® at continuous-integration@mathworks.com.
