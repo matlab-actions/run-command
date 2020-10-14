@@ -13,7 +13,7 @@ async function run() {
 
     const helperScript = await core.group("Generate script", async () => {
         const helperScript = await matlab.generateScript(workspaceDir, command);
-        core.info("Sucessfully generated script");
+        core.info("Successfully generated script");
         return helperScript;
     });
 
