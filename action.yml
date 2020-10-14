@@ -17,7 +17,6 @@ inputs:
       not specify the file extension. If you specify more than one MATLAB
       command, use a comma or semicolon to separate the commands.
     required: true
-    default: ""
 runs:
   using: node12
   main: dist/index.js
