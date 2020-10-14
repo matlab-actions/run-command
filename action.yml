@@ -1,0 +1,22 @@
+# Copyright 2020 The MathWorks, Inc.
+
+name: Run MATLAB Command
+description: >-
+  Execute a MATLAB script, function, or statement. 
+  MATLAB exits with exit code 0 if the specified script, function, or statement
+  executes successfully without error. Otherwise, MATLAB terminates with a
+  nonzero exit code, which causes the build to fail. You can use the assert or
+  error functions in the command to ensure that builds fail when necessary. When
+  you use this task, all of the required files must be on the MATLAB search
+  path.
+inputs:
+  command:
+    description: >-
+      Script, function, or statement to execute. 
+      If the value of `command` is the name of a MATLAB script or function, do
+      not specify the file extension. If you specify more than one MATLAB
+      command, use a comma or semicolon to separate the commands.
+    required: true
+runs:
+  using: node12
+  main: dist/index.js

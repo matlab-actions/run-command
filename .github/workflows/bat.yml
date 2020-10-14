@@ -1,0 +1,31 @@
+name: Build and Test
+on: [push]
+
+jobs:
+  bat:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+      - name: Perform npm tasks
+        run: npm run ci
+
+      - name: Checkout setup-matlab-action
+        uses: actions/checkout@v2
+        with:
+          repository: mathworks-continuous-integration/setup-matlab-action
+          ref: v0.1.0
+          path: setup-matlab-action
+          ssh-key: ${{ secrets.SETUP_MATLAB_COMMAND_KEY }}
+      - name: Perform 'setup-matlab-action'
+        uses: ./setup-matlab-action
+        env:
+          MATHWORKS_TOKEN: ${{ secrets.MATHWORKS_TOKEN }}
+
+      - name: Exercise RunMATLABCommand
+        uses: ./
+        with:
+          command: "disp('hello world');"
