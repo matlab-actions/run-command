@@ -6,6 +6,9 @@ import * as matlab from "./matlab";
 
 export { matlab };
 
+/**
+ * Gather action inputs and then run action.
+ */
 async function run() {
     const platform = process.platform;
     const workspaceDir = process.cwd();
