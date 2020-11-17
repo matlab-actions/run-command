@@ -11,7 +11,7 @@ exit code, which causes the build to fail. You can use the
 the command to ensure that builds fail when necessary. When you use this task,
 all of the required files must be on the MATLAB search path.
 
-**Note**: By running the code in the submission, you will be executing third party
+**Note**: By running the code in this action, you will be executing third party
 code that is licensed under separate terms.
 
 ## Usage
