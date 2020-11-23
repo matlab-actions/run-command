@@ -22,7 +22,7 @@ You can use this action `with`:
 | `command` | (Required) Script, function, or statement to execute. <br/> If the value of `command` is the name of a MATLAB script or function, do not specify the file extension. If you specify more than one MATLAB command, use a comma or semicolon to separate the commands. <br/> **Example**: `myscript` <br/> **Example**: `results = runtests, assertSuccess(results);`
 
 ### Using a GitHub-hosted runner?
-If you are using a GitHub-hosted runner, you can use the [Set up MATLAB action](https://github.com/mathworks/setup-matlab-action/) to install MATLAB on the runner.
+If you are using a GitHub-hosted runner, you can use the [Set up MATLAB action](https://github.com/matlab-actions/setup-matlab/) to install MATLAB on the runner.
 
 ## Example
 
@@ -36,17 +36,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Set up MATLAB using this action first if running on a GitHub-hosted runner!
-      - uses: mathworks/setup-matlab-action@v0
+      - uses: matlab-actions/setup-matlab@v0
       
       - name: Run "disp('hello world')" directly using MATLAB
-        uses: mathworks/run-matlab-command-action@v0
+        uses: matlab-actions/run-command@v0
         with:
             command: disp('hello world')
 ```
 
 ## See also
-- [Set up MATLAB action](https://github.com/mathworks/setup-matlab-action/)
-- [Run MATLAB Tests](https://github.com/mathworks/run-matlab-tests-action/)
+- [Set up MATLAB action](https://github.com/matlab-actions/setup-matlab/)
+- [Run MATLAB Tests](https://github.com/matlab-actions/run-tests/)
 - [Continuous Integration - MATLAB & Simulink](https://www.mathworks.com/solutions/continuous-integration.html)
 
 ## Contact Us
