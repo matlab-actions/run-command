@@ -13,15 +13,8 @@ jobs:
       - name: Perform npm tasks
         run: npm run ci
 
-      - name: Checkout setup-matlab
-        uses: actions/checkout@v2
-        with:
-          repository: matlab-actions/setup-matlab
-          ref: v0.1.0
-          path: setup-matlab
-          ssh-key: ${{ secrets.SETUP_MATLAB_COMMAND_KEY }}
       - name: Perform 'setup-matlab'
-        uses: ./setup-matlab
+        uses: matlab-actions/setup-matlab
         env:
           MATHWORKS_TOKEN: ${{ secrets.MATHWORKS_TOKEN }}
 
