@@ -13,15 +13,15 @@ jobs:
       - name: Perform npm tasks
         run: npm run ci
 
-      - name: Checkout setup-matlab-action
+      - name: Checkout setup-matlab
         uses: actions/checkout@v2
         with:
-          repository: mathworks-continuous-integration/setup-matlab-action
+          repository: matlab-actions/setup-matlab
           ref: v0.1.0
-          path: setup-matlab-action
+          path: setup-matlab
           ssh-key: ${{ secrets.SETUP_MATLAB_COMMAND_KEY }}
-      - name: Perform 'setup-matlab-action'
-        uses: ./setup-matlab-action
+      - name: Perform 'setup-matlab'
+        uses: ./setup-matlab
         env:
           MATHWORKS_TOKEN: ${{ secrets.MATHWORKS_TOKEN }}
 
