@@ -50,7 +50,7 @@ export async function generateScript(workspaceDir: string, command: string): Pro
  * @param fn ExecFn that will execute a command on the runner
  */
 export async function runCommand(hs: HelperScript, platform: string, fn: ExecFn): Promise<void> {
-    const rmcPath = getRmcPath(platform);
+    const rmcPath = getRunMATLABCommandScriptPath(platform);
     await fs.chmod(rmcPath, 0o777);
 
     const rmcArg = script.cdAndCall(hs.dir, hs.command);
@@ -66,7 +66,7 @@ export async function runCommand(hs: HelperScript, platform: string, fn: ExecFn)
  *
  * @param platform Operating system of the runner (e.g., "win32" or "linux")
  */
-export function getRmcPath(platform: string): string {
+export function getRunMATLABCommandScriptPath(platform: string): string {
     const ext = platform === "win32" ? "bat" : "sh";
     const rmcPath = path.join(__dirname, "bin", `run_matlab_command.${ext}`);
     return rmcPath;
