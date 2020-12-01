@@ -14,7 +14,7 @@ jobs:
         run: npm run ci
 
       - name: Perform 'setup-matlab'
-        uses: matlab-actions/setup-matlab
+        uses: matlab-actions/setup-matlab@v0
         env:
           MATHWORKS_TOKEN: ${{ secrets.MATHWORKS_TOKEN }}
 
