@@ -25,9 +25,9 @@ async function run() {
     });
 }
 
-// Do not run if this node module is required by another action such as
-// run-tests.
-if (!(require.main === module)) {
+// Only run this action if it is invoked directly. Do not run if this node
+// module is required by another action such as run-tests.
+if (require.main === module) {
     run().catch((e) => {
         core.setFailed(e);
     });
