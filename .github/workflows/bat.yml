@@ -56,7 +56,7 @@ jobs:
       - name: Run MATLAB statement in working directory
         uses: ./
         with:
-          command: exp = getenv('SYSTEM_DEFAULTWORKINGDIRECTORY'); act = pwd; assert(strcmp(act, exp), strjoin({act exp}, '\n'));
+          command: exp = getenv('GITHUB_WORKSPACE'), act = pwd, assert(strcmp(act, exp), strjoin({act exp}, '\n'));
       
       - run: echo 'onetyone = 11' > startup.m
         shell: bash
