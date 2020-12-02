@@ -112,7 +112,7 @@ describe("run command", () => {
 describe("ci helper path", () => {
     const testCase = (platform: string, ext: string) => {
         it(`considers the appropriate script on ${platform}`, () => {
-            const actualPath = matlab.getRmcPath(platform);
+            const actualPath = matlab.getRunMATLABCommandScriptPath(platform);
             const actualExt = path.extname(actualPath);
             expect(actualExt).toMatch(ext);
         });
