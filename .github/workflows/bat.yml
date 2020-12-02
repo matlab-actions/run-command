@@ -18,7 +18,50 @@ jobs:
         env:
           MATHWORKS_TOKEN: ${{ secrets.MATHWORKS_TOKEN }}
 
-      - name: Exercise RunMATLABCommand
+      - name: Greet the world in style
         uses: ./
         with:
           command: "disp('hello world');"
+
+      - name: Run MATLAB statement
+        uses: ./
+        with:
+          command: f = fopen('myscript.m', 'w'); fwrite(f, 'assert(true)'); fclose(f);
+      
+      - name: Run MATLAB script
+        uses: ./
+        with:
+          command: myscript
+      
+      - name: Run MATLAB statement with quotes 1
+        uses: ./
+        with:
+          command: "eval(\"a = 1+2\"); assert(a == 3); eval('b = 3+4'); assert(b == 7);"
+      
+      - name: Run MATLAB statement with quotes 2
+        uses: ./
+        with:
+          command: 'eval("a = 1+2"); assert(a == 3); eval(''b = 3+4''); assert(b == 7);'
+      
+      - name: Run MATLAB statement with quotes 3
+        uses: ./
+        with:
+          command: a = """hello world"""; b = '"hello world"'; assert(strcmp(a,b));
+      
+      - name: Run MATLAB statement with symbols
+        uses: ./
+        with:
+          command: a = " !""#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~"; b = char([32:126]); assert(strcmp(a, b), a+b);
+      
+      - name: Run MATLAB statement in working directory
+        uses: ./
+        with:
+          command: exp = getenv('SYSTEM_DEFAULTWORKINGDIRECTORY'); act = pwd; assert(strcmp(act, exp), strjoin({act exp}, '\n'));
+      
+      - run: echo 'onetyone = 11' > startup.m
+        shell: bash
+      
+      - name: MATLAB runs startup.m automatically
+        uses: ./
+        with:
+          command: assert(onetyone==11, 'the variable `onetyone` was not set as expected by startup.m')
