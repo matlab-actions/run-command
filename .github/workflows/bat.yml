@@ -36,22 +36,22 @@ jobs:
       - name: Run MATLAB statement with quotes 1
         uses: ./
         with:
-          command: "eval(\"a = 1+2\"); assert(a == 3); eval('b = 3+4'); assert(b == 7);"
+          command: "eval(\"a = 1+2\"), assert(a == 3); eval('b = 3+4'), assert(b == 7);"
       
       - name: Run MATLAB statement with quotes 2
         uses: ./
         with:
-          command: 'eval("a = 1+2"); assert(a == 3); eval(''b = 3+4''); assert(b == 7);'
+          command: 'eval("a = 1+2"), assert(a == 3); eval(''b = 3+4''), assert(b == 7);'
       
       - name: Run MATLAB statement with quotes 3
         uses: ./
         with:
-          command: a = """hello world"""; b = '"hello world"'; assert(strcmp(a,b));
+          command: a = """hello world""", b = '"hello world"', assert(strcmp(a,b));
       
       - name: Run MATLAB statement with symbols
         uses: ./
         with:
-          command: a = " !""#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~"; b = char([32:126]); assert(strcmp(a, b), a+b);
+          command: a = " !""#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~", b = char([32:126]), assert(strcmp(a, b), a+b);
       
       - name: Run MATLAB statement in working directory
         uses: ./
