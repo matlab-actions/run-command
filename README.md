@@ -1,53 +1,69 @@
-# Run MATLAB® Command
+# Action for Running MATLAB Commands
 
-This action executes a MATLAB script, function, or statement using the _first_
-MATLAB version on the runner's system `PATH`.
+The [Run MATLAB Command](#run-matlab-command) GitHub&reg; action enables you to execute a MATLAB&reg; script, function, or statement on a [GitHub-hosted](https://docs.github.com/en/free-pro-team@latest/actions/reference/specifications-for-github-hosted-runners) or [self-hosted](https://docs.github.com/en/free-pro-team@latest/actions/hosting-your-own-runners/about-self-hosted-runners) runner:
 
-MATLAB exits with exit code 0 if the specified script, function, or statement
-executes successfully without error. Otherwise, MATLAB terminates with a nonzero
-exit code, which causes the build to fail. You can use the
-[`assert`](https://www.mathworks.com/help/matlab/ref/assert.html) or
-[`error`](https://www.mathworks.com/help/matlab/ref/assert.html) functions in
-the command to ensure that builds fail when necessary. When you use this task,
-all of the required files must be on the MATLAB search path.
+- If you want to use a self-hosted runner, you must set up a computer with MATLAB (R2013b or later) as your runner. The action uses the first MATLAB version on the runner's path.
 
-**Note**: By running the code in this action, you will be executing third-party
-code that is licensed under separate terms.
+- If you want to use a GitHub-hosted runner, you must include the [Set Up MATLAB](https://github.com/matlab-actions/setup-matlab/) action in your workflow to install MATLAB on the runner. Currently, this action is available only for public projects and does not include transformation products, such as MATLAB Coder&trade; and MATLAB Compiler&trade;.
 
-## Usage
+## Usage Examples
+Use the **Run MATLAB Command** action to run MATLAB scripts, functions, and statements tailored to your specific needs. You can use this action to flexibly customize your test run or add a MATLAB-related step to your workflow. 
 
-You can use this action `with`:
-| Argument  | Description |
-|-----------|-------------|
-| `command` | (Required) Script, function, or statement to execute. <br/> If the value of `command` is the name of a MATLAB script or function, do not specify the file extension. If you specify more than one MATLAB command, use a comma or semicolon to separate the commands. <br/> **Example**: `myscript` <br/> **Example**: `results = runtests, assertSuccess(results);`
-
-### Using a GitHub-hosted runner?
-If you are using a GitHub-hosted runner, you can use the [Set up MATLAB action](https://github.com/matlab-actions/setup-matlab/) to install MATLAB on the runner.
-
-## Example
+### Run MATLAB Script on Self-Hosted Runner
+Use a self-hosted runner to run the commands in a file named `myscript.m` in the root of your repository.
 
 ```yaml
-name: Sample workflow
+name: Use MATLAB in Workflow 
 on: [push]
-
 jobs:
   my-job:
-    name: Say hello from MATLAB
-    runs-on: ubuntu-latest
+    name: Run MATLAB Commands
+    runs-on: self-hosted
     steps:
-      # Set up MATLAB using this action first if running on a GitHub-hosted runner!
-      - uses: matlab-actions/setup-matlab@v0
-      
-      - name: Run "disp('hello world')" directly using MATLAB
+      - name: Run commands in myscript.m
         uses: matlab-actions/run-command@v0
         with:
-            command: disp('hello world')
+            command: 'myscript'
 ```
 
+### Run MATLAB Commands on GitHub-Hosted Runner
+Use the [Set Up MATLAB](https://github.com/matlab-actions/setup-matlab/) action when you want to run MATLAB code or Simulink models on a GitHub-hosted runner. The action installs your specified MATLAB release (R2020a or later) on a Linux virtual machine. If you do not specify a release, the action installs the latest release of MATLAB.
+
+For example, install the latest release of MATLAB on a GitHub-hosted runner, and then use the **Run MATLAB Command** action to execute your MATLAB commands.
+
+```yaml
+name: Use MATLAB in Workflow
+on: [push]
+jobs:
+  my-job:
+    name: Run MATLAB Commands
+    runs-on: ubuntu-latest
+    steps:
+      # Install MATLAB on a GitHub-hosted runner
+      - uses: matlab-actions/setup-matlab@v0
+        uses: matlab-actions/run-command@v0
+        with:
+            command: 'results = runtests, assertSuccess(results);'
+```
+
+## Run MATLAB Command
+When you define your workflow in the `.github/workflows` directory of your repositoy, you can specify the **Run MATLAB Command** action using the `run-command` key. The action requires an input.
+
+Input                     | Description    
+------------------------- | --------------- 
+`command`                 | (Required) Script, function, or statement to execute. If the value of `command` is the name of a MATLAB script or function, do not specify the file extension. If you specify more than one MATLAB command, use a comma or semicolon to separate the commands.<br/>**Example:** `'myscript'`<br/>**Example:** `'results = runtests, assertSuccess(results);'` 
+
+MATLAB exits with exit code 0 if the specified script, function, or statement executes successfully without error. Otherwise, MATLAB terminates with a nonzero exit code, which causes the build to fail. You can use the [`assert`](https://www.mathworks.com/help/matlab/ref/assert.html) or [`error`](https://www.mathworks.com/help/matlab/ref/error.html) functions in the command to ensure that builds fail when necessary.
+
+When you use this action, all of the required files must be on the MATLAB search path.
+
+## Notes
+By running the **Run MATLAB Command** action, you will be executing third-party code that is licensed under separate terms.
+
 ## See also
-- [Set up MATLAB action](https://github.com/matlab-actions/setup-matlab/)
-- [Run MATLAB Tests](https://github.com/matlab-actions/run-tests/)
-- [Continuous Integration - MATLAB & Simulink](https://www.mathworks.com/solutions/continuous-integration.html)
+- [Action for Running MATLAB Tests](https://github.com/matlab-actions/run-tests/)
+- [Action for Installing MATLAB on GitHub-Hosted Runner](https://github.com/matlab-actions/setup-matlab/)
+- [Continuous Integration with MATLAB and Simulink](https://www.mathworks.com/solutions/continuous-integration.html)
 
 ## Contact Us
-If you have any questions or suggestions, please contact MathWorks® at continuous-integration@mathworks.com.
+If you have any questions or suggestions, please contact MathWorks&reg; at [continuous-integration@mathworks.com](mailto:continuous-integration@mathworks.com).
