@@ -13,17 +13,19 @@ Use the **Run MATLAB Command** action to run MATLAB scripts, functions, and stat
 Use a self-hosted runner to run the commands in a file named `myscript.m` in the root of your repository.
 
 ```yaml
-name: Use MATLAB in Workflow 
+name: Run MATLAB Script on Self-Hosted Runner
 on: [push]
 jobs:
   my-job:
-    name: Run MATLAB Commands
+    name: Run MATLAB Script
     runs-on: self-hosted
     steps:
-      - name: Run commands in myscript.m
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Run script
         uses: matlab-actions/run-command@v0
         with:
-            command: 'myscript'
+          command: 'myscript'
 ```
 
 ### Run MATLAB Commands on GitHub-Hosted Runner
@@ -32,18 +34,21 @@ Use the [Set Up MATLAB](https://github.com/matlab-actions/setup-matlab/) action 
 For example, install the latest release of MATLAB on a GitHub-hosted runner, and then use the **Run MATLAB Command** action to execute your MATLAB commands.
 
 ```yaml
-name: Use MATLAB in Workflow
+name: Run MATLAB Commands on GitHub-Hosted Runner
 on: [push]
 jobs:
   my-job:
     name: Run MATLAB Commands
     runs-on: ubuntu-latest
     steps:
-      # Install MATLAB on a GitHub-hosted runner
-      - uses: matlab-actions/setup-matlab@v0
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Install MATLAB
+        uses: matlab-actions/setup-matlab@v0
+      - name: Run commands
         uses: matlab-actions/run-command@v0
         with:
-            command: 'results = runtests, assertSuccess(results);'
+          command: 'results = runtests, assertSuccess(results);'
 ```
 
 ## Run MATLAB Command
