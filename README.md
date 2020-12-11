@@ -52,7 +52,7 @@ jobs:
 ```
 
 ## Run MATLAB Command
-When you define your workflow in the `.github/workflows` directory of your repositoy, you can specify the **Run MATLAB Command** action using the `run-command` key. The action requires an input.
+When you define your workflow in the `.github/workflows` directory of your repository, you can specify the **Run MATLAB Command** action as `matlab-actions/run-command@v0`. The action requires an input.
 
 Input                     | Description    
 ------------------------- | --------------- 
