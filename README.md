@@ -25,7 +25,7 @@ jobs:
       - name: Run script
         uses: matlab-actions/run-command@v0
         with:
-          command: 'myscript'
+          command: myscript
 ```
 
 ### Run MATLAB Commands on GitHub-Hosted Runner
@@ -48,7 +48,7 @@ jobs:
       - name: Run commands
         uses: matlab-actions/run-command@v0
         with:
-          command: 'results = runtests, assertSuccess(results);'
+          command: results = runtests, assertSuccess(results);
 ```
 
 ## Run MATLAB Command
@@ -56,7 +56,7 @@ When you define your workflow in the `.github/workflows` directory of your repos
 
 Input                     | Description    
 ------------------------- | --------------- 
-`command`                 | (Required) Script, function, or statement to execute. If the value of `command` is the name of a MATLAB script or function, do not specify the file extension. If you specify more than one MATLAB command, use a comma or semicolon to separate the commands.<br/>**Example:** `'myscript'`<br/>**Example:** `'results = runtests, assertSuccess(results);'` 
+`command`                 | (Required) Script, function, or statement to execute. If the value of `command` is the name of a MATLAB script or function, do not specify the file extension. If you specify more than one MATLAB command, use a comma or semicolon to separate the commands.<br/>**Example:** `myscript`<br/>**Example:** `results = runtests, assertSuccess(results);` 
 
 MATLAB exits with exit code 0 if the specified script, function, or statement executes successfully without error. Otherwise, MATLAB terminates with a nonzero exit code, which causes the build to fail. You can use the [`assert`](https://www.mathworks.com/help/matlab/ref/assert.html) or [`error`](https://www.mathworks.com/help/matlab/ref/error.html) functions in the command to ensure that builds fail when necessary.
 
