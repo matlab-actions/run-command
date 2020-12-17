@@ -1,6 +1,6 @@
 # Action for Running MATLAB Commands
 
-The [Run MATLAB Command](#run-matlab-command) GitHub&reg; action enables you to execute a MATLAB&reg; script, function, or statement on a [GitHub-hosted](https://docs.github.com/en/free-pro-team@latest/actions/reference/specifications-for-github-hosted-runners) or [self-hosted](https://docs.github.com/en/free-pro-team@latest/actions/hosting-your-own-runners/about-self-hosted-runners) runner:
+The [Run MATLAB Command](#run-matlab-command) GitHub&reg; action enables you to execute a MATLAB&reg; script, function, or statement on a [self-hosted](https://docs.github.com/en/free-pro-team@latest/actions/hosting-your-own-runners/about-self-hosted-runners) or [GitHub-hosted](https://docs.github.com/en/free-pro-team@latest/actions/reference/specifications-for-github-hosted-runners) runner:
 
 - If you want to use a self-hosted runner, you must set up a computer with MATLAB (R2013b or later) as your runner. The action uses the first MATLAB version on the runner's system path.
 
