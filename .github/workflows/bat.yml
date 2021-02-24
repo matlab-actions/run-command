@@ -1,6 +1,9 @@
 name: Build and Test
 on: [push]
 
+env:
+  MATHWORKS_SKIP_ACTIVATION: true
+
 jobs:
   bat:
     name: Build and Test
