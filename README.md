@@ -29,7 +29,7 @@ jobs:
 ```
 
 ### Run MATLAB Commands on GitHub-Hosted Runner
-Use the [Set Up MATLAB](https://github.com/matlab-actions/setup-matlab/) action when you want to run MATLAB code or Simulink models on a GitHub-hosted runner. The action installs your specified MATLAB release (R2020a or later) on a Linux virtual machine. If you do not specify a release, the action installs the latest release of MATLAB.
+Use the [Set Up MATLAB](https://github.com/matlab-actions/setup-matlab/) action when you want to run MATLAB code or Simulink models on a GitHub-hosted runner. The action installs your specified MATLAB release (R2020a or later) on a Linux&reg; virtual machine. If you do not specify a release, the action installs the latest release of MATLAB.
 
 For example, install the latest release of MATLAB on a GitHub-hosted runner, and then use the **Run MATLAB Command** action to execute your MATLAB commands.
 
