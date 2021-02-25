@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: "12"
       - name: Perform npm tasks
-        run: npm run ci
+        run: npm run ci-pilot
 
       - name: Perform 'setup-matlab'
         uses: matlab-actions/setup-matlab@private-repo-pilot
