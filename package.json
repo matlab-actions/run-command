@@ -5,7 +5,7 @@
     "description": "",
     "main": "lib/index.js",
     "scripts": {
-        "clean": "rm -rf dist/index.js lib",
+        "clean": "rm -rf dist lib",
         "format": "prettier --write .",
         "format-check": "prettier --check .",
         "build": "tsc",
@@ -13,7 +13,10 @@
         "package": "ncc build --minify",
         "test": "jest",
         "all": "npm test && npm run build && npm run package",
-        "ci": "npm run clean && npm run deps && npm ci && npm run all"
+        "ci": "npm run clean && npm run deps && npm ci && npm run all",
+
+        "clean-pilot": "rm -rf dist/index.js lib",
+        "ci-pilot": "npm run clean-pilot && npm ci && npm run all"
     },
     "files": [
         "lib/"
