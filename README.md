@@ -1,13 +1,13 @@
 # Action for Running MATLAB Commands
 
-The [Run MATLAB Command](#run-matlab-command) GitHub&reg; action enables you to execute a MATLAB&reg; script, function, or statement on a [self-hosted](https://docs.github.com/en/free-pro-team@latest/actions/hosting-your-own-runners/about-self-hosted-runners) or [GitHub-hosted](https://docs.github.com/en/free-pro-team@latest/actions/reference/specifications-for-github-hosted-runners) runner:
+The [Run MATLAB Command](#run-matlab-command) GitHub&reg; action enables you to execute MATLAB&reg; scripts, functions, or statements on a [self-hosted](https://docs.github.com/en/free-pro-team@latest/actions/hosting-your-own-runners/about-self-hosted-runners) or [GitHub-hosted](https://docs.github.com/en/free-pro-team@latest/actions/reference/specifications-for-github-hosted-runners) runner:
 
-- If you want to use a self-hosted runner, you must set up a computer with MATLAB (R2013b or later) as your runner. The action uses the first MATLAB version on the runner's system path.
+- To use a self-hosted runner, you must set up a computer with MATLAB (R2013b or later) as your runner. The action uses the topmost MATLAB version on the runner's system path.
 
-- If you want to use a GitHub-hosted runner, you must include the [Set Up MATLAB](https://github.com/matlab-actions/setup-matlab/) action in your workflow to install MATLAB on the runner. Currently, this action is available only for public projects and does not include transformation products, such as MATLAB Coder&trade; and MATLAB Compiler&trade;.
+- To use a GitHub-hosted runner, you must include the [Set Up MATLAB](https://github.com/matlab-actions/setup-matlab/) action in your workflow to install MATLAB on the runner. Currently, this action is available only for public projects. It does not install transformation products, such as MATLAB Coder&trade; and MATLAB Compiler&trade;.
 
 ## Usage Examples
-Use the **Run MATLAB Command** action to run MATLAB scripts, functions, and statements tailored to your specific needs. You can use this action to flexibly customize your test run or add a MATLAB-related step to your workflow. 
+Use the **Run MATLAB Command** action to run MATLAB scripts, functions, and statements. You can use this action to flexibly customize your test run or add a MATLAB related step to your workflow. 
 
 ### Run MATLAB Script on Self-Hosted Runner
 Use a self-hosted runner to run the commands in a file named `myscript.m` in the root of your repository.
@@ -29,7 +29,7 @@ jobs:
 ```
 
 ### Run MATLAB Commands on GitHub-Hosted Runner
-Use the [Set Up MATLAB](https://github.com/matlab-actions/setup-matlab/) action when you want to run MATLAB code or Simulink models on a GitHub-hosted runner. The action installs your specified MATLAB release (R2020a or later) on a Linux&reg; virtual machine. If you do not specify a release, the action installs the latest release of MATLAB.
+Before you run MATLAB code or Simulink models on a GitHub-hosted runner, first use the [Set Up MATLAB](https://github.com/matlab-actions/setup-matlab/) action. The action installs your specified MATLAB release (R2020a or later) on a Linux&reg; virtual machine. If you do not specify a release, the action installs the latest release of MATLAB.
 
 For example, install the latest release of MATLAB on a GitHub-hosted runner, and then use the **Run MATLAB Command** action to execute your MATLAB commands.
 
@@ -52,18 +52,18 @@ jobs:
 ```
 
 ## Run MATLAB Command
-When you define your workflow in the `.github/workflows` directory of your repository, you can specify the **Run MATLAB Command** action as `matlab-actions/run-command@v0`. The action requires an input.
+When you define your workflow in the `.github/workflows` directory of your repository, specify the **Run MATLAB Command** action as `matlab-actions/run-command@v0`. The action requires an input.
 
 Input                     | Description    
 ------------------------- | --------------- 
-`command`                 | (Required) Script, function, or statement to execute. If the value of `command` is the name of a MATLAB script or function, do not specify the file extension. If you specify more than one MATLAB command, use a comma or semicolon to separate the commands.<br/>**Example:** `myscript`<br/>**Example:** `results = runtests, assertSuccess(results);` 
+`command`                 | (Required) Script, function, or statement to execute. If the value of `command` is the name of a MATLAB script or function, do not specify the file extension. If you specify more than one script, function, or statement, use a comma or semicolon to separate them.<br/>**Example:** `myscript`<br/>**Example:** `results = runtests, assertSuccess(results);` 
 
-MATLAB exits with exit code 0 if the specified script, function, or statement executes successfully without error. Otherwise, MATLAB terminates with a nonzero exit code, which causes the build to fail. You can use the [`assert`](https://www.mathworks.com/help/matlab/ref/assert.html) or [`error`](https://www.mathworks.com/help/matlab/ref/error.html) functions in the command to ensure that builds fail when necessary.
+MATLAB exits with exit code 0 if the specified script, function, or statement executes successfully without error. Otherwise, MATLAB terminates with a nonzero exit code, which causes the build to fail. To ensure that the build fails in certain conditions, use the [`assert`](https://www.mathworks.com/help/matlab/ref/assert.html) or [`error`](https://www.mathworks.com/help/matlab/ref/error.html) functions.
 
 When you use this action, all of the required files must be on the MATLAB search path.
 
 ## Notes
-By running the **Run MATLAB Command** action, you will be executing third-party code that is licensed under separate terms.
+When you use the **Run MATLAB Command** action, you execute third-party code that is licensed under separate terms.
 
 ## See Also
 - [Action for Running MATLAB Tests](https://github.com/matlab-actions/run-tests/)
