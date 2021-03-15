@@ -68,5 +68,5 @@ if ver_less_than "$matlab_ver" '9.5'; then
 
     matlab "$opts" -r "try,eval('$exp'),catch e,disp(getReport(e,'extended')),exit(1),end,exit"
 else
-    matlab-batch -r "$command"
+    matlab-batch "$command"
 fi
