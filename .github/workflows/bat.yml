@@ -1,6 +1,11 @@
 name: Build and Test
 on: [push]
 
+env:
+  MATHWORKS_SKIP_ACTIVATION: true
+  MATHWORKS_ACCOUNT: ${{ secrets.MATHWORKS_ACCOUNT }}
+  MATHWORKS_TOKEN: ${{ secrets.MATHWORKS_TOKEN }}
+
 jobs:
   bat:
     name: Build and Test
@@ -11,10 +16,10 @@ jobs:
         with:
           node-version: "12"
       - name: Perform npm tasks
-        run: npm run ci
+        run: npm run ci-pilot
 
       - name: Perform 'setup-matlab'
-        uses: matlab-actions/setup-matlab@v0
+        uses: matlab-actions/setup-matlab@private-repo-pilot
 
       - name: Greet the world in style
         uses: ./
