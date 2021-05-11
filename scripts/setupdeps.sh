@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RMC_URL='https://ssd.mathworks.com/supportfiles/ci/run-matlab-command/v0/run-matlab-command.zip'
+RMC_URL='https://static-dev.mathworks-ci.com/run-matlab-command/private-pilot/run-matlab-command.zip'
 
 # Create dist directory if it doesn't already exist
 DISTDIR="$(pwd)/dist/bin"
