@@ -2,7 +2,7 @@
 
 name: Run MATLAB Command
 description: >-
-  Execute a MATLAB script, function, or statement
+  Run MATLAB scripts, functions, and statements
 inputs:
   command:
     description: >-
