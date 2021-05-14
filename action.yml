@@ -6,10 +6,7 @@ description: >-
 inputs:
   command:
     description: >-
-      Script, function, or statement to execute. 
-      If the value of `command` is the name of a MATLAB script or function, do
-      not specify the file extension. If you specify more than one MATLAB
-      command, use a comma or semicolon to separate the commands.
+      Script, function, or statement to execute
     required: true
 runs:
   using: node12
