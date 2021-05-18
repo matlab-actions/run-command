@@ -4,7 +4,7 @@ The [Run MATLAB Command](#run-matlab-command) GitHub&reg; action enables you to 
 
 - To use a self-hosted runner, you must set up a computer with MATLAB (R2013b or later) as your runner. The action uses the topmost MATLAB version on the runner's system path.
 
-- To use a GitHub-hosted runner, you must include the [Setup MATLAB](https://github.com/matlab-actions/setup-matlab/) action in your workflow to install MATLAB on the runner. Currently, this action is available only for public projects. It does not install transformation products, such as MATLAB Coder&trade; and MATLAB Compiler&trade;.
+- To use a GitHub-hosted runner, you must include the [Setup MATLAB](https://github.com/matlab-actions/setup-matlab/) action in your workflow to set up MATLAB on the runner. Currently, this action is available only for public projects. It does not set up transformation products, such as MATLAB Coder&trade; and MATLAB Compiler&trade;.
 
 ## Usage Examples
 Use the **Run MATLAB Command** action to run MATLAB scripts, functions, and statements. You can use this action to flexibly customize your test run or add a MATLAB related step to your workflow.
@@ -29,9 +29,9 @@ jobs:
 ```
 
 ### Run MATLAB Commands on GitHub-Hosted Runner
-Before you run MATLAB code or Simulink models on a GitHub-hosted runner, first use the [Setup MATLAB](https://github.com/matlab-actions/setup-matlab/) action. The action installs your specified MATLAB release (R2020a or later) on a Linux&reg; virtual machine. If you do not specify a release, the action installs the latest release of MATLAB.
+Before you run MATLAB code or Simulink models on a GitHub-hosted runner, first use the [Setup MATLAB](https://github.com/matlab-actions/setup-matlab/) action. The action sets up your specified MATLAB release (R2020a or later) on a Linux&reg; virtual machine. If you do not specify a release, the action sets up the latest release of MATLAB.
 
-For example, install the latest release of MATLAB on a GitHub-hosted runner, and then use the **Run MATLAB Command** action to execute your MATLAB commands.
+For example, set up the latest release of MATLAB on a GitHub-hosted runner, and then use the **Run MATLAB Command** action to execute your MATLAB commands.
 
 ```yaml
 name: Run MATLAB Commands on GitHub-Hosted Runner
