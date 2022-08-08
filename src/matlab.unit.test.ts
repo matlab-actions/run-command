@@ -110,7 +110,7 @@ describe("run command", () => {
 });
 
 describe("ci helper path", () => {
-    const testCase = (platform: string, ext: string) => {
+    const testExtension = (platform: string, ext: string) => {
         it(`considers the appropriate script on ${platform}`, () => {
             const actualPath = matlab.getRunMATLABCommandScriptPath(platform);
             const actualExt = path.extname(actualPath);
@@ -118,7 +118,19 @@ describe("ci helper path", () => {
         });
     };
 
-    testCase("win32", "bat");
-    testCase("darwin", "sh");
-    testCase("linux", "sh");
+    const testDirectory = (platform: string, subdirectory: string) => {
+        it(`considers the appropriate script on ${platform}`, () => {
+            const actualPath = matlab.getRunMATLABCommandScriptPath(platform);
+            expect(actualPath).toContain(subdirectory);
+        });
+    };
+    
+    testExtension("win32", "exe");
+    testExtension("darwin", "");
+    testExtension("linux", "");
+
+    testDirectory("win32", "win64");
+    testDirectory("darwin", "maci64");
+    testDirectory("linux", "glnxa64");
+
 });

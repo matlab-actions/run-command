@@ -67,7 +67,22 @@ export async function runCommand(hs: HelperScript, platform: string, fn: ExecFn)
  * @param platform Operating system of the runner (e.g., "win32" or "linux")
  */
 export function getRunMATLABCommandScriptPath(platform: string): string {
-    const ext = platform === "win32" ? "bat" : "sh";
-    const rmcPath = path.join(__dirname, "bin", `run_matlab_command.${ext}`);
+    let ext;
+    let platform_dir;
+    switch (platform) {
+        case "win32":
+            ext = ".exe";
+            platform_dir = "win64";
+            break;
+        case "darwin":
+            ext = "";
+            platform_dir = "maci64";
+            break;
+        default:
+            ext = "";
+            platform_dir = "glnxa64";
+    }
+    const rmcPath = path.join(__dirname, "bin", platform_dir, `run-matlab-command${ext}`);
     return rmcPath;
+
 }

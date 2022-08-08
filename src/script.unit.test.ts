@@ -7,7 +7,7 @@ describe("call generation", () => {
         // I know what your thinking
         const testDir = String.raw`C:\Users\you\You're Documents`;
         const testCommand = "disp('hello world')";
-        const expectedString = String.raw`cd('C:\Users\you\You''re Documents'); ${testCommand}`;
+        const expectedString = String.raw`cd('C:\Users\you\You''re Documents');${testCommand}`;
 
         expect(script.cdAndCall(testDir, testCommand)).toMatch(expectedString);
     });
