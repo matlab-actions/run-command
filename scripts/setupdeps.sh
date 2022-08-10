@@ -8,7 +8,7 @@ DISTDIR="$(pwd)/dist/bin"
 mkdir -p $DISTDIR
 
 # Download and extract in a temporary directory
-WORKINGDIR=$(mktemp -d -t rmc_build)
+WORKINGDIR=$(mktemp -d -t rmc_build.XXXXXX)
 cd $WORKINGDIR
 
 wget -O  "$WORKINGDIR/license.txt" "$RMC_BASE_URL/license.txt"
