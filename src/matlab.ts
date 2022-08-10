@@ -70,7 +70,7 @@ export async function runCommand(hs: HelperScript, platform: string, architectur
 */
 export function getRunMATLABCommandScriptPath(platform: string, architecture: string): string {
     if (architecture != "x64") {
-        throw new Error(`This action is not supported for runners of platform ${platform} and architecture ${architecture}.`);
+        throw new Error(`This action is not supported on ${platform} runners using the ${architecture} architecture.`);
     }
     let ext;
     let platformDir;
@@ -88,7 +88,7 @@ export function getRunMATLABCommandScriptPath(platform: string, architecture: st
             platformDir = "glnxa64";
             break;
         default:
-            throw new Error(`This action is not supported for runners of platform ${platform} and architecture ${architecture}.`);
+            throw new Error(`This action is not supported on ${platform} runners using the ${architecture} architecture.`);
     }
     const rmcPath = path.join(__dirname, "bin", platformDir, `run-matlab-command${ext}`);
     return rmcPath;
