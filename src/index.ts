@@ -11,6 +11,7 @@ export { matlab };
  */
 async function run() {
     const platform = process.platform;
+    const architecture = process.arch;
     const workspaceDir = process.cwd();
     const command = core.getInput("command");
 
@@ -21,7 +22,7 @@ async function run() {
     });
 
     await core.group("Run command", async () => {
-        await matlab.runCommand(helperScript, platform, exec.exec);
+        await matlab.runCommand(helperScript, platform, architecture, exec.exec);
     });
 }
 

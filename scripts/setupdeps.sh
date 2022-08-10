@@ -23,7 +23,7 @@ do
     fi
     mkdir -p "$WORKINGDIR/$os"
     wget -O  "$WORKINGDIR/$os/run-matlab-command$bin_ext" "$RMC_BASE_URL/$os/run-matlab-command$bin_ext"
-    mv -f ./* "$DISTDIR/"
 done
 
+mv -f ./* "$DISTDIR/"
 rm -rf $WORKINGDIR
