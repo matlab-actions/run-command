@@ -12,6 +12,7 @@ WORKINGDIR=$(mktemp -d -t rmc_build.XXXXXX)
 cd $WORKINGDIR
 
 wget -O  "$WORKINGDIR/license.txt" "$RMC_BASE_URL/license.txt"
+wget -O  "$WORKINGDIR/thirdpartylicenses.txt" "$RMC_BASE_URL/thirdpartylicenses.txt"
 
 for os in ${SUPPORTED_OS[@]}
 do
