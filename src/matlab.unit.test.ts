@@ -58,6 +58,7 @@ describe("script generation", () => {
 describe("run command", () => {
     const helperScript = { dir: "/home/sweet/home", command: "disp('hello, world');" };
     const platform = "win32";
+    const architecture = "x64"
 
     it("ideally works", async () => {
         const chmod = jest.spyOn(fs, "chmod");
@@ -66,7 +67,7 @@ describe("run command", () => {
         chmod.mockResolvedValue(undefined);
         execFn.mockResolvedValue(0);
 
-        const actual = matlab.runCommand(helperScript, platform, execFn);
+        const actual = matlab.runCommand(helperScript, platform, architecture, execFn);
         await expect(actual).resolves.toBeUndefined();
     });
 
@@ -76,7 +77,7 @@ describe("run command", () => {
 
         chmod.mockRejectedValue(null);
 
-        const actual = matlab.runCommand(helperScript, platform, execFn);
+        const actual = matlab.runCommand(helperScript, platform, architecture, execFn);
         await expect(actual).rejects.toBeDefined();
         expect(chmod).toHaveBeenCalledTimes(1);
         expect(execFn).not.toHaveBeenCalled();
@@ -89,7 +90,7 @@ describe("run command", () => {
         chmod.mockResolvedValue(undefined);
         execFn.mockRejectedValue(null);
 
-        const actual = matlab.runCommand(helperScript, platform, execFn);
+        const actual = matlab.runCommand(helperScript, platform, architecture, execFn);
         await expect(actual).rejects.toBeDefined();
         expect(chmod).toHaveBeenCalledTimes(1);
         expect(execFn).toHaveBeenCalledTimes(1);
@@ -102,7 +103,7 @@ describe("run command", () => {
         chmod.mockResolvedValue(undefined);
         execFn.mockResolvedValue(1);
 
-        const actual = matlab.runCommand(helperScript, platform, execFn);
+        const actual = matlab.runCommand(helperScript, platform, architecture, execFn);
         await expect(actual).rejects.toBeDefined();
         expect(chmod).toHaveBeenCalledTimes(1);
         expect(execFn).toHaveBeenCalledTimes(1);
@@ -110,15 +111,36 @@ describe("run command", () => {
 });
 
 describe("ci helper path", () => {
-    const testCase = (platform: string, ext: string) => {
+    const platform = "linux"
+    const architecture = "x64"
+    const testExtension = (platform: string, ext: string) => {
         it(`considers the appropriate script on ${platform}`, () => {
-            const actualPath = matlab.getRunMATLABCommandScriptPath(platform);
+            const actualPath = matlab.getRunMATLABCommandScriptPath(platform, architecture);
             const actualExt = path.extname(actualPath);
             expect(actualExt).toMatch(ext);
         });
     };
 
-    testCase("win32", "bat");
-    testCase("darwin", "sh");
-    testCase("linux", "sh");
+    const testDirectory = (platform: string, subdirectory: string) => {
+        it(`considers the appropriate script on ${platform}`, () => {
+            const actualPath = matlab.getRunMATLABCommandScriptPath(platform, architecture);
+            expect(actualPath).toContain(subdirectory);
+        });
+    };
+    
+    testExtension("win32", "exe");
+    testExtension("darwin", "");
+    testExtension("linux", "");
+
+    testDirectory("win32", "win64");
+    testDirectory("darwin", "maci64");
+    testDirectory("linux", "glnxa64");
+
+    it("errors on unsupported platform", () => {
+        expect(() => matlab.getRunMATLABCommandScriptPath('sunos',architecture)).toThrow();
+    })
+
+    it("errors on unsupported architecture", () => {
+        expect(() => matlab.getRunMATLABCommandScriptPath(platform, 'x86')).toThrow();
+    })
 });

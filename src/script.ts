@@ -8,7 +8,7 @@
  * @returns MATLAB command.
  */
 export function cdAndCall(dir: string, command: string): string {
-    return `cd('${pathToCharVec(dir)}'); ${command}`;
+    return `cd('${pathToCharVec(dir)}');${command}`;
 }
 
 /**

@@ -47,10 +47,11 @@ export async function generateScript(workspaceDir: string, command: string): Pro
  *
  * @param hs HelperScript pointing to the script containing the command
  * @param platform Operating system of the runner (e.g., "win32" or "linux")
+ * @param architecture Architecture of the runner (e.g., "x64")
  * @param fn ExecFn that will execute a command on the runner
  */
-export async function runCommand(hs: HelperScript, platform: string, fn: ExecFn): Promise<void> {
-    const rmcPath = getRunMATLABCommandScriptPath(platform);
+export async function runCommand(hs: HelperScript, platform: string, architecture: string, fn: ExecFn): Promise<void> {
+    const rmcPath = getRunMATLABCommandScriptPath(platform, architecture);
     await fs.chmod(rmcPath, 0o777);
 
     const rmcArg = script.cdAndCall(hs.dir, hs.command);
@@ -65,9 +66,31 @@ export async function runCommand(hs: HelperScript, platform: string, fn: ExecFn)
  * Get the path of the script containing RunMATLABCommand for the host OS.
  *
  * @param platform Operating system of the runner (e.g., "win32" or "linux")
- */
-export function getRunMATLABCommandScriptPath(platform: string): string {
-    const ext = platform === "win32" ? "bat" : "sh";
-    const rmcPath = path.join(__dirname, "bin", `run_matlab_command.${ext}`);
+ * @param architecture Architecture of the runner (e.g., "x64")
+*/
+export function getRunMATLABCommandScriptPath(platform: string, architecture: string): string {
+    if (architecture != "x64") {
+        throw new Error(`This action is not supported on ${platform} runners using the ${architecture} architecture.`);
+    }
+    let ext;
+    let platformDir;
+    switch (platform) {
+        case "win32":
+            ext = ".exe";
+            platformDir = "win64";
+            break;
+        case "darwin":
+            ext = "";
+            platformDir = "maci64";
+            break;
+        case "linux":
+            ext = "";
+            platformDir = "glnxa64";
+            break;
+        default:
+            throw new Error(`This action is not supported on ${platform} runners using the ${architecture} architecture.`);
+    }
+    const rmcPath = path.join(__dirname, "bin", platformDir, `run-matlab-command${ext}`);
     return rmcPath;
+
 }
