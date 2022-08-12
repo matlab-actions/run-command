@@ -44,8 +44,8 @@ jobs:
         id: release_info
         run: |
           # Check for semantic versioning
+          echo "Preparing release for version $longVersion"
           longVersion="${{github.event.release.tag_name}}"
-          echo $longVersion
           [[ $longVersion == v[0-9]*.[0-9]*.[0-9]* ]]  || (echo "must follow semantic versioning" && exit 1)
           majorVersion=$(echo ${longVersion%.*.*})
           minorVersion=$(echo ${longVersion%.*})
@@ -70,8 +70,8 @@ jobs:
           git tag -f $majorVersion $commitHash
           git tag -f $minorVersion $commitHash
           
-          echo "About to push"
           # Force push the new minor version tag to overwrite the old tag remotely
+          echo "Pushing new tags"
           git push -f origin $longVersion
           git push -f origin $majorVersion
           git push -f origin $minorVersion
