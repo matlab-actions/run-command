@@ -64,7 +64,7 @@ jobs:
           
           # Delete the old major and minor version tags locally
           git tag -d $majorVersion || true
-          git tag -d $majorVersion || true
+          git tag -d $minorVersion || true
           
           # Make new major and minor version tags locally that point to the commit you got from the "git rev-list" above
           git tag -f $majorVersion $commitHash
