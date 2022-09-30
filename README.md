@@ -69,6 +69,7 @@ When you use this action, all of the required files must be on the MATLAB search
 * When you use the **Run MATLAB Command** action, you execute third-party code that is licensed under separate terms.
 
 ## See Also
+- [Action for Running MATLAB Builds](https://github.com/matlab-actions/run-build/)
 - [Action for Running MATLAB Tests](https://github.com/matlab-actions/run-tests/)
 - [Action for Setting Up MATLAB on GitHub-Hosted Runner](https://github.com/matlab-actions/setup-matlab/)
 - [Continuous Integration with MATLAB and Simulink](https://www.mathworks.com/solutions/continuous-integration.html)
