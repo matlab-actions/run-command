@@ -14,7 +14,7 @@ jobs:
         run: npm run ci
 
       - name: Perform 'setup-matlab'
-        uses: matlab-actions/setup-matlab@v0
+        uses: matlab-actions/setup-matlab@v1
 
       - name: Greet the world in style
         uses: ./
