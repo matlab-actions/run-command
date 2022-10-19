@@ -9,5 +9,5 @@ inputs:
       Script, function, or statement to execute
     required: true
 runs:
-  using: node12
+  using: node16
   main: dist/index.js
