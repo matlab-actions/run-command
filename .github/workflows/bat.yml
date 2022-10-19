@@ -6,15 +6,15 @@ jobs:
     name: Build and Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: "12"
+          node-version: 16
       - name: Perform npm tasks
         run: npm run ci
 
       - name: Perform 'setup-matlab'
-        uses: matlab-actions/setup-matlab@v0
+        uses: matlab-actions/setup-matlab@v1
 
       - name: Greet the world in style
         uses: ./
