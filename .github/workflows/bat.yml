@@ -57,7 +57,7 @@ jobs:
           command: exp = getenv('GITHUB_WORKSPACE'), act = pwd, assert(strcmp(act, exp), strjoin({act exp}, '\n'));
 
       - name: Run MATLAB statement with arguments
-        users: ./
+        uses: ./
         with:
           command: "disp('Hello world!'); exit();"
           startup-options: -nojvm -nodesktop
