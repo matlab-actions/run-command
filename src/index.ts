@@ -14,6 +14,7 @@ async function run() {
     const architecture = process.arch;
     const workspaceDir = process.cwd();
     const command = core.getInput("command");
+    const startupopts = core.getInput("startup-options").split(" ");
 
     const helperScript = await core.group("Generate script", async () => {
         const helperScript = await matlab.generateScript(workspaceDir, command);
@@ -22,7 +23,7 @@ async function run() {
     });
 
     await core.group("Run command", async () => {
-        await matlab.runCommand(helperScript, platform, architecture, exec.exec);
+        await matlab.runCommand(helperScript, platform, architecture, exec.exec, startupopts);
     });
 }
 

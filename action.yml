@@ -8,6 +8,11 @@ inputs:
     description: >-
       Script, function, or statement to execute
     required: true
+  startup-opts:
+    description: >-
+      Startup options for MATLAB
+    required: false
+    default: ""
 runs:
   using: node16
   main: dist/index.js

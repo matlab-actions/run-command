@@ -71,6 +71,20 @@ describe("run command", () => {
         await expect(actual).resolves.toBeUndefined();
     });
 
+    it("ideally works with arguments", async () => {
+        const chmod = jest.spyOn(fs, "chmod");
+        const execFn = jest.fn();
+
+        chmod.mockResolvedValue(undefined);
+        execFn.mockResolvedValue(0);
+
+        const actual = matlab.runCommand(helperScript, platform, architecture, execFn, ["-nojvm", "-logfile", "file"]);
+        await expect(actual).resolves.toBeUndefined();
+        expect(execFn.mock.calls[0][1][1]).toBe("-nojvm");
+        expect(execFn.mock.calls[0][1][2]).toBe("-logfile");
+        expect(execFn.mock.calls[0][1][3]).toBe("file");
+    });
+
     it("fails when chmod fails", async () => {
         const chmod = jest.spyOn(fs, "chmod");
         const execFn = jest.fn();
