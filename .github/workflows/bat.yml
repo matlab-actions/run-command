@@ -1,9 +1,6 @@
 name: Build and Test
 on: [push]
 
-env:
-  MATHWORKS_RMC_BASE_URL: https://mw-ci-static-dev.s3.amazonaws.com/run-matlab-command/v0/addargs/run-matlab-command
-
 jobs:
   bat:
     name: Build and Test
