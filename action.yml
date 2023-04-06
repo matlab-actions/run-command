@@ -8,7 +8,7 @@ inputs:
     description: >-
       Script, function, or statement to execute
     required: true
-  startup-opts:
+  startup-options:
     description: >-
       Startup options for MATLAB
     required: false
