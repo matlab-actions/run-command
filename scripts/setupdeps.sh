@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RMC_BASE_URL='https://ssd.mathworks.com/supportfiles/ci/run-matlab-command/v1'
+RMC_BASE_URL='https://mw-ci-static-dev.s3.amazonaws.com/run-matlab-command/v0/addargs/run-matlab-command/'
 SUPPORTED_OS=('win64' 'maci64' 'glnxa64')
 
 # Create dist directory if it doesn't already exist
