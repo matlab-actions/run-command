@@ -59,7 +59,7 @@ jobs:
       - name: Run MATLAB statement with arguments
         uses: ./
         with:
-          command: "disp('Hello world!')"
+          command: "disp('Hello world!!')"
           startup-options: -nojvm -nodesktop -logfile mylog.log
           
       - name: Validate that command ran with arguments
