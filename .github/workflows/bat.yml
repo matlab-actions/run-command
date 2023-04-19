@@ -62,6 +62,9 @@ jobs:
           command: "disp('Hello world!!')"
           startup-options: -nojvm -nodesktop -logfile mylog.log
           
+      - run: ls
+        shell: bash
+          
       - name: Validate that command ran with arguments
         uses: ./
         with:
