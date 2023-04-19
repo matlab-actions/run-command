@@ -59,16 +59,13 @@ jobs:
       - name: Run MATLAB statement with arguments
         uses: ./
         with:
-          command: "disp('Hello world!!')"
+          command: disp("Hello world!!")
           startup-options: -nojvm -nodesktop -logfile mylog.log
-          
-      - run: ls
-        shell: bash
           
       - name: Validate that command ran with arguments
         uses: ./
         with:
-          command: assert(isfile(mylog.log));
+          command: assert(isfile("mylog.log"));
       
       - run: echo 'onetyone = 11' > startup.m
         shell: bash
