@@ -62,7 +62,7 @@ jobs:
           command: disp("Hello world!!")
           startup-options: -nojvm -nodesktop -logfile mylog.log
           
-      - name: Validate that command ran with arguments
+      - name: Validate that previous command ran with arguments
         uses: ./
         with:
           command: assert(isfile("mylog.log"));
