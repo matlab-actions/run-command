@@ -1,4 +1,4 @@
-// Copyright 2020 The MathWorks, Inc.
+// Copyright 2020-2023 The MathWorks, Inc.
 
 import { promises as fs } from "fs";
 import * as os from "os";
@@ -50,13 +50,19 @@ export async function generateScript(workspaceDir: string, command: string): Pro
  * @param architecture Architecture of the runner (e.g., "x64")
  * @param fn ExecFn that will execute a command on the runner
  */
-export async function runCommand(hs: HelperScript, platform: string, architecture: string, fn: ExecFn): Promise<void> {
+export async function runCommand(hs: HelperScript, platform: string, architecture: string, fn: ExecFn, args?: string[]): Promise<void> {
     const rmcPath = getRunMATLABCommandScriptPath(platform, architecture);
     await fs.chmod(rmcPath, 0o777);
 
     const rmcArg = script.cdAndCall(hs.dir, hs.command);
 
-    const exitCode = await fn(rmcPath, [rmcArg]);
+    let execArgs = [rmcArg];
+
+    if (args) {
+       execArgs = execArgs.concat(args);
+    }
+
+    const exitCode = await fn(rmcPath, execArgs);
     if (exitCode !== 0) {
         return Promise.reject(Error(`Exited with non-zero code ${exitCode}`));
     }

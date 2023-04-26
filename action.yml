@@ -1,4 +1,4 @@
-# Copyright 2020 The MathWorks, Inc.
+# Copyright 2020-2023 The MathWorks, Inc.
 
 name: Run MATLAB Command
 description: >-
@@ -8,6 +8,11 @@ inputs:
     description: >-
       Script, function, or statement to execute
     required: true
+  startup-options:
+    description: >-
+      Startup options for MATLAB
+    required: false
+    default: ""
 runs:
   using: node16
   main: dist/index.js

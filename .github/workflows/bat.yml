@@ -55,6 +55,17 @@ jobs:
         uses: ./
         with:
           command: exp = getenv('GITHUB_WORKSPACE'), act = pwd, assert(strcmp(act, exp), strjoin({act exp}, '\n'));
+
+      - name: Run MATLAB statement with arguments
+        uses: ./
+        with:
+          command: disp("Hello world!!")
+          startup-options: -nojvm -nodesktop -logfile mylog.log
+          
+      - name: Validate that previous command ran with arguments
+        uses: ./
+        with:
+          command: assert(isfile("mylog.log"));
       
       - run: echo 'onetyone = 11' > startup.m
         shell: bash
