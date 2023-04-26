@@ -23,7 +23,7 @@ async function run() {
     });
 
     await core.group("Run command", async () => {
-        await matlab.runCommand(helperScript, platform, architecture, exec.exec, startupopts);
+        await matlab.runCommand(helperScript, platform, architecture, exec.exec, startupOpts);
     });
 }
 
