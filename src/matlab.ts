@@ -33,7 +33,7 @@ export async function generateScript(workspaceDir: string, command: string): Pro
     const temporaryDirectory = await fs.mkdtemp(path.join(os.tmpdir(), "run_matlab_command-"));
 
     const scriptPath = path.join(temporaryDirectory, scriptName + ".m");
-    await fs.writeFile(scriptPath, script.cdAndCall(workspaceDir, command), {
+    await fs.writeFile(scriptPath, script.cdAndCall(scriptName, command), {
         encoding: "utf8",
     });
 
@@ -54,7 +54,7 @@ export async function runCommand(hs: HelperScript, platform: string, architectur
     const rmcPath = getRunMATLABCommandScriptPath(platform, architecture);
     await fs.chmod(rmcPath, 0o777);
 
-    const rmcArg = script.cdAndCall(hs.dir, hs.command);
+    const rmcArg = `${hs.command}(cd('${hs.dir}'));`;
 
     let execArgs = [rmcArg];
 

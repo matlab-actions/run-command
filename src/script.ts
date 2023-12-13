@@ -1,4 +1,4 @@
-// Copyright 2020 The MathWorks, Inc.
+// Copyright 2020-2023 The MathWorks, Inc.
 
 /**
  * Generate MATLAB command for changing directories and calling a command in it.
@@ -7,8 +7,8 @@
  * @param command Command to run in directory.
  * @returns MATLAB command.
  */
-export function cdAndCall(dir: string, command: string): string {
-    return `cd('${pathToCharVec(dir)}');${command}`;
+export function cdAndCall(scriptName: string, command: string): string {
+    return `function ${scriptName}(folder)\ncd(folder);${command}`;
 }
 
 /**
