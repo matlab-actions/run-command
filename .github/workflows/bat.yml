@@ -67,10 +67,10 @@ jobs:
         with:
           command: assert(isfile("mylog.log"));
       
-      - run: echo 'onetyone = 11' > startup.m
+      - run: pwd && echo 'onetyone = 11' > startup.m
         shell: bash
       
       - name: MATLAB runs startup.m automatically
         uses: ./
         with:
-          command: assert(onetyone==11, 'the variable `onetyone` was not set as expected by startup.m')
+          command: disp(pwd());assert(onetyone==11, 'the variable `onetyone` was not set as expected by startup.m')
