@@ -5,11 +5,10 @@ import * as script from "./script";
 describe("call generation", () => {
     it("ideally works", () => {
         // I know what your thinking
-        const testName = "command_uuid_123";
         const testCommand = "disp('hello world')";
-        const expectedString = `function command_uuid_123(folder)\ncd(folder);${testCommand}`;
+        const expectedString = `cd(getenv("MW_ORIG_WORKING_FOLDER"));${testCommand}`;
 
-        expect(script.cdAndCall(testName, testCommand)).toMatch(expectedString);
+        expect(script.cdAndCall(testCommand)).toMatch(expectedString);
     });
 });
 

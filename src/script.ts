@@ -7,8 +7,8 @@
  * @param command Command to run in directory.
  * @returns MATLAB command.
  */
-export function cdAndCall(scriptName: string, command: string): string {
-    return `function ${scriptName}(folder)\ncd(folder);${command}`;
+export function cdAndCall(command: string): string {
+    return `cd(getenv("MW_ORIG_WORKING_FOLDER"));${command}`;
 }
 
 /**
