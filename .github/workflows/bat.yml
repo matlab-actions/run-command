@@ -74,3 +74,13 @@ jobs:
         uses: ./
         with:
           command: assert(onetyone==11, 'the variable `onetyone` was not set as expected by startup.m')
+
+      - run: |
+          mkdir subdir
+          echo 'onetyonetyone = 111' > startup.m
+        shell: bash
+
+      - name: MATLAB sd startup option is not overwritten
+        uses: ./
+        with:
+          command: [~, f] = fileparts(pwd); assert(onetyone==111); assert(strcmp(f, 'subdir'));
