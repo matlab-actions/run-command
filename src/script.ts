@@ -8,7 +8,7 @@
  * @returns MATLAB command.
  */
 export function cdAndCall(command: string): string {
-    return `cd(getenv("MW_ORIG_WORKING_FOLDER"));${command}`;
+    return `cd(getenv('MW_ORIG_WORKING_FOLDER'));${command}`;
 }
 
 /**
