@@ -84,7 +84,7 @@ jobs:
         uses: ./
         with:
           command: >
-            assert(onetyone==111);
+            assert(onetyonentyone==111);
             [~, f] = fileparts(pwd);
             assert(strcmp(f, 'subdir'));
           startup-options: -sd subdir
