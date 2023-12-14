@@ -37,7 +37,10 @@ export async function generateScript(workspaceDir: string, command: string): Pro
         encoding: "utf8",
     });
 
-    return { dir: temporaryDirectory, command: scriptName };
+    return { 
+        dir: script.pathToCharVec(temporaryDirectory), 
+        command: scriptName 
+    };
 }
 
 /**
@@ -54,7 +57,7 @@ export async function runCommand(hs: HelperScript, platform: string, architectur
     const rmcPath = getRunMATLABCommandScriptPath(platform, architecture);
     await fs.chmod(rmcPath, 0o777);
 
-    const rmcArg = `setenv("MW_ORIG_WORKING_FOLDER", cd('${hs.dir}'));${hs.command}`;
+    const rmcArg = `setenv('MW_ORIG_WORKING_FOLDER', cd('${hs.dir}'));${hs.command}`;
 
     let execArgs = [rmcArg];
 
