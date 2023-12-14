@@ -83,4 +83,8 @@ jobs:
       - name: MATLAB sd startup option is not overwritten
         uses: ./
         with:
-          command: [~, f] = fileparts(pwd); assert(onetyone==111); assert(strcmp(f, 'subdir'));
+          command: >
+            assert(onetyone==111);
+            [~, f] = fileparts(pwd);
+            assert(strcmp(f, 'subdir'));
+          startup-options: -sd subdir
