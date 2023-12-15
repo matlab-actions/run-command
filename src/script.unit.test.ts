@@ -1,15 +1,14 @@
-// Copyright 2020 The MathWorks, Inc.
+// Copyright 2020-2023 The MathWorks, Inc.
 
 import * as script from "./script";
 
 describe("call generation", () => {
     it("ideally works", () => {
         // I know what your thinking
-        const testDir = String.raw`C:\Users\you\You're Documents`;
         const testCommand = "disp('hello world')";
-        const expectedString = String.raw`cd('C:\Users\you\You''re Documents');${testCommand}`;
+        const expectedString = `cd(getenv('MW_ORIG_WORKING_FOLDER'));${testCommand}`;
 
-        expect(script.cdAndCall(testDir, testCommand)).toMatch(expectedString);
+        expect(script.cdAndCall(testCommand)).toMatch(expectedString);
     });
 });
 
