@@ -1,6 +1,6 @@
 # Action for Running MATLAB Commands
 
-The [Run MATLAB Command](#run-matlab-command) action enables you to execute MATLAB&reg; scripts, functions, and statements on a self-hosted or GitHub&reg;-hosted runner. The runner uses the topmost MATLAB version on the system path to execute your workflow.
+The [Run MATLAB Command](#run-matlab-command) action enables you to execute MATLAB&reg; scripts, functions, and statements on a self-hosted or GitHub&reg;-hosted runner. The action uses the topmost MATLAB version on the system path.
 
 ## Examples
 Use the **Run MATLAB Command** action to run MATLAB scripts, functions, and statements. You can use this action to flexibly customize your test run or add a step in MATLAB to your workflow.
