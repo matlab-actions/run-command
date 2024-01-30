@@ -6,7 +6,7 @@ The [Run MATLAB Command](#run-matlab-command) action enables you to execute MATL
 Use the **Run MATLAB Command** action to run MATLAB scripts, functions, and statements. You can use this action to flexibly customize your test run or add a step in MATLAB to your workflow.
 
 ### Run MATLAB Script on Self-Hosted Runner
-Use a self-hosted runner to run the commands in a file named `myscript.m` in the root of your repository.
+Use a [self-hosted runner](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners) to run the commands in a file named `myscript.m` in the root of your repository.
 
 ```yaml
 name: Run MATLAB Script on Self-Hosted Runner
