@@ -21,7 +21,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Check out repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Run script
         uses: matlab-actions/run-command@v2
         with:
@@ -42,7 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up MATLAB
         uses: matlab-actions/setup-matlab@v2
       - name: Run commands
