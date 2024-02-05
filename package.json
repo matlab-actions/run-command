@@ -1,7 +1,7 @@
 {
     "name": "run-matlab-command-action",
     "author": "The MathWorks, Inc.",
-    "version": "1.2.3",
+    "version": "2.0.0",
     "description": "",
     "main": "lib/index.js",
     "scripts": {
@@ -24,7 +24,7 @@
         "uuid": "^8.3.2"
     },
     "devDependencies": {
-        "@types/jest": "^26.0.23",
+        "@types/jest": "^27.0.3",
         "@types/node": "^15.12.4",
         "@types/uuid": "^8.3.0",
         "@vercel/ncc": "^0.38.0",
