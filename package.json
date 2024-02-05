@@ -27,7 +27,7 @@
         "@types/jest": "^26.0.23",
         "@types/node": "^15.12.4",
         "@types/uuid": "^8.3.0",
-        "@vercel/ncc": "^0.28.6",
+        "@vercel/ncc": "^0.38.0",
         "jest": "^27.5.1",
         "jest-circus": "^27.0.5",
         "prettier": "2.3.1",
