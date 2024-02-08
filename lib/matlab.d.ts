@@ -9,7 +9,7 @@ export interface HelperScript {
  * Type of a function that executes a command on a runner and returns the error
  * code.
  */
-export declare type ExecFn = (command: string, args?: string[]) => Promise<number>;
+export type ExecFn = (command: string, args?: string[]) => Promise<number>;
 /**
  * Generate a MATLAB script in the temporary directory that runs a command in
  * the workspace.
