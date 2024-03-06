@@ -135,7 +135,7 @@ describe("ci helper path", () => {
         });
     };
 
-    const testDirectory = (platform: string, subdirectory: string) => {
+    const testDirectory = (platform: string, architecture: string, subdirectory: string) => {
         it(`considers the appropriate script on ${platform}`, () => {
             const actualPath = matlab.getRunMATLABCommandScriptPath(platform, architecture);
             expect(actualPath).toContain(subdirectory);
@@ -146,9 +146,10 @@ describe("ci helper path", () => {
     testExtension("darwin", "");
     testExtension("linux", "");
 
-    testDirectory("win32", "win64");
-    testDirectory("darwin", "maci64");
-    testDirectory("linux", "glnxa64");
+    testDirectory("win32", "x64", "win64");
+    testDirectory("darwin", "x64", "maci64");
+    testDirectory("darwin", "arm64", "maca64");
+    testDirectory("linux", "x64", "glnxa64");
 
     it("errors on unsupported platform", () => {
         expect(() => matlab.getRunMATLABCommandScriptPath('sunos',architecture)).toThrow();

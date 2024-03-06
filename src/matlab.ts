@@ -78,7 +78,7 @@ export async function runCommand(hs: HelperScript, platform: string, architectur
  * @param architecture Architecture of the runner (e.g., "x64")
 */
 export function getRunMATLABCommandScriptPath(platform: string, architecture: string): string {
-    if (architecture != "x64") {
+    if (architecture != "x64" && !(platform == "darwin" && architecture == "arm64")) {
         throw new Error(`This action is not supported on ${platform} runners using the ${architecture} architecture.`);
     }
     let ext;
@@ -90,7 +90,11 @@ export function getRunMATLABCommandScriptPath(platform: string, architecture: st
             break;
         case "darwin":
             ext = "";
-            platformDir = "maci64";
+            if (architecture == "x64") {
+                platformDir = "maci64";
+            } else {
+                platformDir = "maca64";
+            }
             break;
         case "linux":
             ext = "";
