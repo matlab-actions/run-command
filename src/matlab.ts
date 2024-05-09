@@ -57,7 +57,7 @@ export async function runCommand(hs: HelperScript, platform: string, architectur
     const rmcPath = getRunMATLABCommandScriptPath(platform, architecture);
     await fs.chmod(rmcPath, 0o777);
 
-    const rmcArg = `setenv('MW_ORIG_WORKING_FOLDER', cd('${script.pathToCharVec(hs.dir)}'));${hs.command}`;
+    const rmcArg = `setenv('MW_ORIG_WORKING_FOLDER',cd('${script.pathToCharVec(hs.dir)}')); ${hs.command}`;
 
     let execArgs = [rmcArg];
 
