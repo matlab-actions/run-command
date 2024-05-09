@@ -16,15 +16,8 @@ async function run() {
     const command = core.getInput("command");
     const startupOpts = core.getInput("startup-options").split(" ");
 
-    const helperScript = await core.group("Generate script", async () => {
-        const helperScript = await matlab.generateScript(workspaceDir, command);
-        core.info("Successfully generated script");
-        return helperScript;
-    });
-
-    await core.group("Run command", async () => {
-        await matlab.runCommand(helperScript, platform, architecture, exec.exec, startupOpts);
-    });
+    const helperScript = await matlab.generateScript(workspaceDir, command);
+    await matlab.runCommand(helperScript, platform, architecture, exec.exec, startupOpts);
 }
 
 // Only run this action if it is invoked directly. Do not run if this node
