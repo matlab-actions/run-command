@@ -56,7 +56,7 @@ To use a MATLAB batch licensing token:
 1. Set the token as a secret. For more information about secrets, see [Using secrets in GitHub Actions](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions).
 2. Map the secret to an environment variable named `MLM_LICENSE_TOKEN` in your workflow. 
 
-For example, use the latest release of MATLAB on a GitHub-hosted runner to run a script named `myscript.m` in your private project. To install the latest release of MATLAB on the runner, specify the [Setup MATLAB](https://github.com/matlab-actions/setup-matlab/) action in your workflow. To run the script, specify the **Run MATLAB Command** action. In this example, `MyToken` is the name of the secret that holds the batch licensing token.
+For example, use the latest release of MATLAB on a GitHub-hosted runner to run a script named `myscript.m` in your private project. To set up the latest release of MATLAB on the runner, specify the [Setup MATLAB](https://github.com/matlab-actions/setup-matlab/) action in your workflow. To run the script, specify the **Run MATLAB Command** action. In this example, `MyToken` is the name of the secret that holds the batch licensing token.
 
 ```YAML
 name: Use MATLAB Batch Licensing Token
@@ -91,8 +91,8 @@ When you use this action, all of the required files must be on the MATLAB search
 `command: addpath("myfolder"), myscript`
 
 ## Notes
-* By default, when you use the **Run MATLAB Command** action, the root of your repository serves as the MATLAB startup folder. To run your MATLAB commands using a different folder, include the `-sd` startup option or the `cd` command in the action.
-* In MATLAB R2019a and later, the **Run MATLAB Command** action uses  the `-batch` option to start MATLAB. Preferences do not persist across different MATLAB sessions launched with the `-batch` option. To run code that requires  the same preferences, use a single action.
+* By default, when you use the **Run MATLAB Command** action, the root of your repository serves as the MATLAB startup folder. To run your MATLAB commands using a different folder, specify the `-sd` startup option or the `cd` command in the action.
+* In MATLAB R2019a and later, the **Run MATLAB Command** action uses  the `-batch` option to start MATLAB noninteractively. Preferences do not persist across different MATLAB sessions launched with the `-batch` option. To run code that requires  the same preferences, use a single action.
 * When you use the **Run MATLAB Command** action, you execute third-party code that is licensed under separate terms.
 
 ## See Also
