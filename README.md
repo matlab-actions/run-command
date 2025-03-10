@@ -1,14 +1,14 @@
 # Action for Running MATLAB Commands
 
-The [Run MATLAB Command](#run-matlab-command) action enables you to execute MATLAB&reg; scripts, functions, and statements on a [self-hosted](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners) or [GitHub&reg;-hosted](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners/about-github-hosted-runners) runner:
-- To use a self-hosted runner, you must set up a computer with MATLAB as your self-hosted runner and register the runner with GitHub Actions. The runner uses the topmost MATLAB release on the system path to execute your workflow.
-- To use a GitHub-hosted runner, you must include the [Setup MATLAB](https://github.com/matlab-actions/setup-matlab/) action in your workflow to set up your preferred MATLAB release (R2021a or later) on the runner.
+The [Run MATLAB Command](#run-matlab-command) action enables you to execute MATLAB&reg; scripts, functions, and statements on a [GitHub&reg;-hosted](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners/about-github-hosted-runners) or [self-hosted](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners) runner:
+- To use a GitHub-hosted runner, include the [Setup MATLAB](https://github.com/matlab-actions/setup-matlab/) action in your workflow to set up your preferred MATLAB release (R2021a or later) on the runner.
+- To use a self-hosted runner, set up a computer with MATLAB on its path to host your runner and register the runner with GitHub Actions. (On self-hosted UNIX&reg; runners, you can also use the **Setup MATLAB** action instead of having MATLAB installed.) The runner uses the topmost MATLAB release on the system path to execute your workflow.
 
 ## Examples
 Use the **Run MATLAB Command** action to run MATLAB scripts, functions, and statements. You can use this action to flexibly customize your test run or add a step in MATLAB to your workflow.
 
 ### Run MATLAB Script
-On a self-hosted runner, run a script named `myscript.m` in the root of your repository. To run the script, specify the **Run MATLAB Command** action in your workflow.
+On a self-hosted runner that has MATLAB installed, run a script named `myscript.m` in the root of your repository. To run the script, specify the **Run MATLAB Command** action in your workflow.
 
 ```yaml
 name: Run MATLAB Script
@@ -49,14 +49,14 @@ jobs:
 
 
 ### Use MATLAB Batch Licensing Token
-On a GitHub-hosted runner, you need a [MATLAB batch licensing token](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/alternates/non-interactive/MATLAB-BATCH.md#matlab-batch-licensing-token) if your project is private or if your workflow includes transformation products, such as MATLAB Coder&trade; and MATLAB Compiler&trade;. Batch licensing tokens are strings that enable MATLAB to start in noninteractive environments. You can request a token by submitting the [MATLAB Batch Licensing Pilot](https://www.mathworks.com/support/batch-tokens.html) form. 
+When you set up your workflow using the [Setup MATLAB](https://github.com/matlab-actions/setup-matlab/) action, you need a [MATLAB batch licensing token](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/alternates/non-interactive/MATLAB-BATCH.md#matlab-batch-licensing-token) if your project is private or if your workflow includes transformation products, such as MATLAB Coder&trade; and MATLAB Compiler&trade;. Batch licensing tokens are strings that enable MATLAB to start in noninteractive environments. You can request a token by submitting the [MATLAB Batch Licensing Pilot](https://www.mathworks.com/support/batch-tokens.html) form. 
 
 To use a MATLAB batch licensing token:
 
 1. Set the token as a secret. For more information about secrets, see [Using secrets in GitHub Actions](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions).
 2. Map the secret to an environment variable named `MLM_LICENSE_TOKEN` in your workflow. 
 
-For example, use the latest release of MATLAB on a GitHub-hosted runner to run a script named `myscript.m` in your private project. To set up the latest release of MATLAB on the runner, specify the [Setup MATLAB](https://github.com/matlab-actions/setup-matlab/) action in your workflow. To run the script, specify the **Run MATLAB Command** action. In this example, `MyToken` is the name of the secret that holds the batch licensing token.
+For example, use the latest release of MATLAB on a GitHub-hosted runner to run a script named `myscript.m` in your private project. To set up the latest release of MATLAB on the runner, specify the **Setup MATLAB** action in your workflow. To run the script, specify the **Run MATLAB Command** action. In this example, `MyToken` is the name of the secret that holds the batch licensing token.
 
 ```YAML
 name: Use MATLAB Batch Licensing Token
