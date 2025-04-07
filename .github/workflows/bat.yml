@@ -88,3 +88,19 @@ jobs:
             [~, f] = fileparts(pwd);
             assert(strcmp(f, 'subdir'));
           startup-options: -sd subdir
+
+      - name: Verify environment variables make it to MATLAB
+        uses: ./
+        with:
+          command: exp = 'my_value', act = getenv('MY_VAR'), assert(strcmp(act, exp), strjoin({act exp}, '\n'));
+        env:
+          MY_VAR: my_value
+
+      # Remove when online batch licensing is the default
+      - name: Verify MW_BATCH_LICENSING_ONLINE variable set
+        uses: ./
+        with:
+          command: exp = 'true', act = getenv('MW_BATCH_LICENSING_ONLINE'), assert(strcmp(act, exp), strjoin({act exp}, '\n'));
+        env:
+          MY_VAR: my_value
+
