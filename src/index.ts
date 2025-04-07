@@ -17,10 +17,10 @@ async function run() {
     const startupOpts = core.getInput("startup-options").split(" ");
 
     const helperScript = await matlab.generateScript(workspaceDir, command);
-    const execOptions = {
-        env: {...process.env, MW_BATCH_LICENSING_ONLINE: 'true'}  // remove when online batch licensing is the default
+    const execOpts = {
+        env: {...process.env, MW_BATCH_LICENSING_ONLINE:'true'}  // remove when online batch licensing is the default
     };
-    await matlab.runCommand(helperScript, platform, architecture, (cmd,args)=>exec.exec(cmd,args,execOptions), startupOpts);
+    await matlab.runCommand(helperScript, platform, architecture, (cmd,args)=>exec.exec(cmd,args,execOpts), startupOpts);
 }
 
 // Only run this action if it is invoked directly. Do not run if this node
