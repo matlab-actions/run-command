@@ -1,4 +1,4 @@
-// Copyright 2020-2023 The MathWorks, Inc.
+// Copyright 2020-2025 The MathWorks, Inc.
 
 /**
  * Generate MATLAB command for changing directories and calling a command in it.
@@ -8,7 +8,7 @@
  * @returns MATLAB command.
  */
 export function cdAndCall(command: string): string {
-    return `cd(getenv('MW_ORIG_WORKING_FOLDER'));${command}`;
+    return `cd(getenv('MW_ORIG_WORKING_FOLDER')); ${command}`;
 }
 
 /**
