@@ -92,7 +92,7 @@ When you use this action, all of the required files must be on the MATLAB search
 
 ## Notes
 * By default, when you use the **Run MATLAB Command** action, the root of your repository serves as the MATLAB startup folder. To run your MATLAB commands using a different folder, specify the `-sd` startup option or the `cd` command in the action.
-* In MATLAB R2019a and later, the **Run MATLAB Command** action uses  the `-batch` option to start MATLAB noninteractively. Preferences do not persist across different MATLAB sessions launched with the `-batch` option. To run code that requires  the same preferences, use a single action.
+* In MATLAB R2019a and later, the **Run MATLAB Command** action uses  the `-batch` option to start MATLAB noninteractively. MATLAB settings do not persist across different MATLAB sessions launched with the `-batch` option. To run code that requires the same settings, use a single action.
 * When you use the **Run MATLAB Command** action, you execute third-party code that is licensed under separate terms.
 
 ## See Also
