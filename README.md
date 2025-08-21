@@ -101,5 +101,9 @@ When you use this action, all of the required files must be on the MATLAB search
 - [Action for Setting Up MATLAB](https://github.com/matlab-actions/setup-matlab/)
 - [Continuous Integration with MATLAB and Simulink](https://www.mathworks.com/solutions/continuous-integration.html)
 
-## Contact Us
-If you have any questions or suggestions, contact MathWorks&reg; at [continuous-integration@mathworks.com](mailto:continuous-integration@mathworks.com).
+## Feedback and Support
+If you encounter a product licensing issue, consider requesting a MATLAB batch licensing token to use in your workflow. For more information, see [Use MATLAB Batch Licensing Token](#use-matlab-batch-licensing-token).
+
+If you have an enhancement request or other feedback about this action, create an issue on the [Issues](https://github.com/matlab-actions/run-command/issues) page.
+
+For support, contact [MathWorks Technical Support](https://www.mathworks.com/support/contact_us.html).
