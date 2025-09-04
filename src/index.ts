@@ -18,7 +18,7 @@ async function run() {
 
     const helperScript = await matlab.generateScript(workspaceDir, command);
     const execOpts = {
-        env: {...process.env, MW_BATCH_LICENSING_ONLINE:'true'}  // Disabled while we work out online licensing kinks
+        env: {...process.env, MW_BATCH_LICENSING_ONLINE:'true'}  // Remove when online batch licensing is the default
     };
     await matlab.runCommand(helperScript, platform, architecture, (cmd,args)=>exec.exec(cmd,args,execOpts), startupOpts);
 }
