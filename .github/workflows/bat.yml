@@ -1,85 +1,89 @@
 name: Build and Test
 on: [push]
+permissions:
+  contents: read
 
 jobs:
   bat:
     name: Build and Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 20
       - name: Perform npm tasks
         run: npm run ci
-
+      - uses: actions/upload-artifact@v4
+        with:
+          name: built-action
+          path: |
+            **/*
+            !node_modules/
+  integ:
+    needs: bat
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest, macos-14]
+    steps:
+      - uses: actions/download-artifact@v5
+        with:
+          name: built-action
       - name: Perform 'setup-matlab'
         uses: matlab-actions/setup-matlab@v2
-
       - name: Greet the world in style
         uses: ./
         with:
           command: "disp('hello world');"
-
       - name: Run MATLAB statement
         uses: ./
         with:
           command: f = fopen('myscript.m', 'w'); fwrite(f, 'assert(true)'); fclose(f);
-      
       - name: Run MATLAB script
         uses: ./
         with:
           command: myscript
-      
       - name: Run MATLAB statement with quotes 1
         uses: ./
         with:
           command: "eval(\"a = 1+2\"), assert(a == 3); eval('b = 3+4'), assert(b == 7);"
-      
       - name: Run MATLAB statement with quotes 2
         uses: ./
         with:
           command: 'eval("a = 1+2"), assert(a == 3); eval(''b = 3+4''), assert(b == 7);'
-      
       - name: Run MATLAB statement with quotes 3
         uses: ./
         with:
           command: a = """hello world""", b = '"hello world"', assert(strcmp(a,b));
-      
       - name: Run MATLAB statement with symbols
         uses: ./
         with:
           command: a = " !""#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~", b = char([32:126]), assert(strcmp(a, b), a+b);
-      
       - name: Run MATLAB statement in working directory
         uses: ./
         with:
           command: exp = getenv('GITHUB_WORKSPACE'), act = pwd, assert(strcmp(act, exp), strjoin({act exp}, '\n'));
-
       - name: Run MATLAB statement with arguments
         uses: ./
         with:
           command: disp("Hello world!!")
           startup-options: -nojvm -nodesktop -logfile mylog.log
-          
       - name: Validate that previous command ran with arguments
         uses: ./
         with:
           command: assert(isfile("mylog.log"));
-      
       - run: echo 'onetyone = 11' > startup.m
         shell: bash
-      
       - name: MATLAB runs startup.m automatically
         uses: ./
         with:
           command: assert(onetyone==11, 'the variable `onetyone` was not set as expected by startup.m')
-
       - run: |
           mkdir subdir
           echo 'onetyonetyone = 111' > subdir/startup.m
         shell: bash
-
       - name: MATLAB sd startup option is not overwritten
         uses: ./
         with:
@@ -88,17 +92,14 @@ jobs:
             [~, f] = fileparts(pwd);
             assert(strcmp(f, 'subdir'));
           startup-options: -sd subdir
-
       - name: Verify environment variables make it to MATLAB
         uses: ./
         with:
           command: exp = 'my_value', act = getenv('MY_VAR'), assert(strcmp(act, exp), strjoin({act exp}, '\n'));
         env:
           MY_VAR: my_value
-
       # Remove when online batch licensing is the default
       - name: Verify MW_BATCH_LICENSING_ONLINE variable set
         uses: ./
         with:
           command: exp = 'true', act = getenv('MW_BATCH_LICENSING_ONLINE'), assert(strcmp(act, exp), strjoin({act exp}, '\n'));
-
