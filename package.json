@@ -13,7 +13,7 @@
         "package": "ncc build --minify",
         "test": "jest",
         "all": "npm test && npm run build && npm run package",
-        "ci": "npm run clean && npm run deps && npm ci && npm run all"
+        "ci": "npm run clean && npm ci && npm run deps && npm run all"
     },
     "files": [
         "lib/"
@@ -21,7 +21,7 @@
     "dependencies": {
         "@actions/core": "^1.11.1",
         "@actions/exec": "^1.1.1",
-        "uuid": "^11.1.0"
+        "common-utils": "github:matlab-actions/common-utils#kapilg/refactor"
     },
     "devDependencies": {
         "@types/jest": "^30.0.0",
