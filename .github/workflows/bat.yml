@@ -94,6 +94,13 @@ jobs:
             [~, f] = fileparts(pwd);
             assert(strcmp(f, 'subdir'));
           startup-options: -sd subdir
+      - name: Run command with testrunner to generate test summary
+        uses: ./
+        with:
+          command: >
+            runner = testrunner();
+            suite = testsuite();
+            result = run(runner, suite);
       - name: Verify environment variables make it to MATLAB
         uses: ./
         with:
