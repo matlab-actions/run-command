@@ -107,16 +107,13 @@ jobs:
             plan.DefaultTasks = "preMadeTest";
             end
           _EOF
-      - name: Run command with buildtool pre-made test task
+      - name: Run command with buildtool pre-made test task and verify summary generation
         uses: ./
         with:
-          command: buildtool preMadeTest
-      - name: Verify build and test summary generation
-        run: |
-          set -e
-          grep "MATLAB Build Results" "$GITHUB_STEP_SUMMARY"
-          grep "MATLAB Test Results" "$GITHUB_STEP_SUMMARY"
-        shell: bash
+          command: >
+            buildtool preMadeTest;
+            assert(contains(getenv('GITHUB_STEP_SUMMARY'), 'MATLAB Build Results'));
+            assert(contains(getenv('GITHUB_STEP_SUMMARY'), 'MATLAB Test Results'));
       - name: Verify environment variables make it to MATLAB
         uses: ./
         with:
