@@ -94,13 +94,23 @@ jobs:
             [~, f] = fileparts(pwd);
             assert(strcmp(f, 'subdir'));
           startup-options: -sd subdir
-      - name: Run command with testrunner to generate test summary
+      - name: Create buildfile.m in project root for build and test summary
+        shell: bash
+        run: |
+          cat <<'_EOF' >> "buildfile.m"
+            function plan = buildfile
+            import matlab.buildtool.tasks.TestTask
+
+            plan = buildplan(localfunctions);
+            plan("preMadeTest") = TestTask;
+            
+            plan.DefaultTasks = "preMadeTest";
+            end
+          _EOF
+      - name: Run command with buildtool pre-made test task
         uses: ./
         with:
-          command: >
-            runner = testrunner();
-            suite = testsuite(pwd, 'IncludeSubfolders', true);
-            result = run(runner, suite);
+          command: buildtool preMadeTest
       - name: Verify environment variables make it to MATLAB
         uses: ./
         with:
