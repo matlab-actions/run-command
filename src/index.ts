@@ -2,7 +2,6 @@
 
 import * as core from "@actions/core";
 import * as exec from "@actions/exec";
-// TODO: update common-utils version when new version is released
 import { matlab, testResultsSummary, buildSummary } from "common-utils";
 
 /**
