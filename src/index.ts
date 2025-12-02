@@ -33,10 +33,7 @@ async function run() {
 
         buildSummary.processAndDisplayBuildSummary(runnerTemp, runId, actionName);
 
-        const testResultsData = testResultsSummary.getTestResults(runnerTemp, runId, workspaceDir);
-        if(testResultsData) {
-            testResultsSummary.writeSummary(testResultsData, actionName);
-        }
+        testResultsSummary.processAndDisplayTestSummary(runnerTemp, runId, actionName, workspaceDir);
     });
 }
 
