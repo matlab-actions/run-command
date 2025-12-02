@@ -34,6 +34,8 @@ async function run() {
         buildSummary.processAndDisplayBuildSummary(runnerTemp, runId, actionName);
 
         testResultsSummary.processAndDisplayTestSummary(runnerTemp, runId, actionName, workspaceDir);
+
+        core.summary.write();
     });
 }
 
