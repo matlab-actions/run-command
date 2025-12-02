@@ -4,7 +4,6 @@ import * as core from "@actions/core";
 import * as exec from "@actions/exec";
 // TODO: update common-utils version when new version is released
 import { matlab, testResultsSummary, buildSummary } from "common-utils";
-import * as path from "path";
 
 /**
  * Gather action inputs and then run action.
@@ -14,8 +13,7 @@ async function run() {
     const architecture = process.arch;
     const workspaceDir = process.cwd();
 
-    const pluginsPath = path.join(__dirname, "plugins").replaceAll("'","''");
-    const command = "addpath('"+ pluginsPath +"'); " + core.getInput("command");
+    const command = core.getInput("command");
     const startupOpts = core.getInput("startup-options").split(" ");
 
     const helperScript = await matlab.generateScript(workspaceDir, command);
