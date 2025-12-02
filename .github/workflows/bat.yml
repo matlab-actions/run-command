@@ -111,6 +111,12 @@ jobs:
         uses: ./
         with:
           command: buildtool preMadeTest
+      - name: Verify build and test summary generation
+        run: |
+          set -e
+          grep "MATLAB Build Results" "$GITHUB_STEP_SUMMARY"
+          grep "MATLAB Test Results" "$GITHUB_STEP_SUMMARY"
+        shell: bash
       - name: Verify environment variables make it to MATLAB
         uses: ./
         with:
