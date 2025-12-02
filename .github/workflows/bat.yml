@@ -99,7 +99,7 @@ jobs:
         with:
           command: >
             runner = testrunner();
-            suite = testsuite(pwd);
+            suite = testsuite(pwd, 'IncludeSubfolders', true);
             result = run(runner, suite);
       - name: Verify environment variables make it to MATLAB
         uses: ./
