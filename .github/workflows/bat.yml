@@ -112,8 +112,8 @@ jobs:
         with:
           command: >
             buildtool preMadeTest;
-            assert(contains(getenv('GITHUB_STEP_SUMMARY'), 'MATLAB Build Results'));
-            assert(contains(getenv('GITHUB_STEP_SUMMARY'), 'MATLAB Test Results'));
+            assert(contains(fileread(getenv('GITHUB_STEP_SUMMARY')), 'MATLAB Build Results'));
+            assert(contains(fileread(getenv('GITHUB_STEP_SUMMARY')), 'MATLAB Test Results'));
       - name: Verify environment variables make it to MATLAB
         uses: ./
         with:

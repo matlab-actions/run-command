@@ -32,9 +32,7 @@ async function run() {
         const actionName = process.env.GITHUB_ACTION || '';
 
         buildSummary.processAndAddBuildSummary(runnerTemp, runId, actionName);
-
         testResultsSummary.processAndAddTestSummary(runnerTemp, runId, actionName, workspaceDir);
-
         core.summary.write();
     });
 }
