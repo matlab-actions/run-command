@@ -50,7 +50,7 @@ jobs:
       - name: Run MATLAB statement with quotes 1
         uses: ./
         with:
-          command: "eval(\"a = 1+2\"), assert(a == 3); eval('b = 3+4'), assert(b == 7);"
+          command: 'eval("a = 1+2"), assert(a == 3); eval(''b = 3+4''), assert(b == 7);'
       - name: Run MATLAB statement with quotes 2
         uses: ./
         with:
