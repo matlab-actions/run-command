@@ -34,10 +34,6 @@ async function run() {
     });
 }
 
-// Only run this action if it is invoked directly. Do not run if this node
-// module is required by another action such as run-tests.
-if (import.meta.filename === process.argv[1]) {
-    run().catch((e) => {
-        core.setFailed(e);
-    });
-}
+run().catch((e) => {
+    core.setFailed(e);
+});
