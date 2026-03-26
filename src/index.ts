@@ -23,7 +23,7 @@ async function run() {
             "MW_MATLAB_BUILDTOOL_DEFAULT_PLUGINS_FCN_OVERRIDE": "buildframework.getDefaultPlugins",
         }
     };
-    await matlab.runCommand(helperScript, platform, architecture, (cmd,args)=>exec.exec(cmd,args,execOpts), startupOpts).finally(() => {
+    await matlab.runCommand(helperScript, platform, architecture, (cmd: string, args?: string[])=>exec.exec(cmd,args,execOpts), startupOpts).finally(() => {
         const runnerTemp = process.env.RUNNER_TEMP || '';
         const runId = process.env.GITHUB_RUN_ID || '';
         const actionName = process.env.GITHUB_ACTION || '';
@@ -36,7 +36,7 @@ async function run() {
 
 // Only run this action if it is invoked directly. Do not run if this node
 // module is required by another action such as run-tests.
-if (require.main === module) {
+if (import.meta.filename === process.argv[1]) {
     run().catch((e) => {
         core.setFailed(e);
     });
