@@ -3,6 +3,7 @@
     "author": "The MathWorks, Inc.",
     "version": "2.4.1",
     "description": "",
+    "type": "module",
     "main": "lib/index.js",
     "scripts": {
         "clean": "rm -rf dist lib",
@@ -11,7 +12,7 @@
         "build": "tsc",
         "deps": "bash ./scripts/setupdeps.sh",
         "package": "ncc build --minify",
-        "test": "jest --passWithNoTests",
+        "test": "NODE_OPTIONS='--experimental-vm-modules' jest --passWithNoTests",
         "all": "npm test && npm run build && npm run package",
         "ci": "npm run clean && npm ci && npm run deps && npm run all"
     },
@@ -19,19 +20,19 @@
         "lib/"
     ],
     "dependencies": {
-        "@actions/core": "^1.11.1",
-        "@actions/exec": "^1.1.1",
-        "common-utils": "github:matlab-actions/common-utils#v1.0.1"
+        "@actions/core": "^3.0.0",
+        "@actions/exec": "^3.0.0",
+        "common-utils": "github:matlab-actions/common-utils#v2.0.1"
     },
     "devDependencies": {
         "@types/jest": "^30.0.0",
         "@types/node": "^24.3.0",
-        "@types/uuid": "^10.0.0",
         "@vercel/ncc": "^0.38.3",
         "jest": "^30.0.5",
         "jest-circus": "^30.0.5",
         "prettier": "3.6.2",
         "ts-jest": "^29.4.1",
+        "ts-node": "^10.9.2",
         "typescript": "^5.9.2"
     }
 }
