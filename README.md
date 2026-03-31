@@ -21,7 +21,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
       - name: Run script
-        uses: matlab-actions/run-command@v2
+        uses: matlab-actions/run-command@v3
         with:
           command: myscript
 ```
@@ -40,9 +40,9 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
       - name: Set up MATLAB
-        uses: matlab-actions/setup-matlab@v2
+        uses: matlab-actions/setup-matlab@v3
       - name: Run statements
-        uses: matlab-actions/run-command@v2
+        uses: matlab-actions/run-command@v3
         with:
           command: results = runtests, assertSuccess(results);
 ```
@@ -71,15 +71,15 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
       - name: Set up MATLAB
-        uses: matlab-actions/setup-matlab@v2
+        uses: matlab-actions/setup-matlab@v3
       - name: Run script
-        uses: matlab-actions/run-command@v2
+        uses: matlab-actions/run-command@v3
         with:
           command: myscript
 ```
 
 ## Run MATLAB Command
-When you define your workflow in the `.github/workflows` directory of your repository, specify the **Run MATLAB Command** action as `matlab-actions/run-command@v2`. The action requires an input and also accepts an optional input.
+When you define your workflow in the `.github/workflows` directory of your repository, specify the **Run MATLAB Command** action as `matlab-actions/run-command@v3`. The action requires an input and also accepts an optional input.
 
 Input                     | Description
 ------------------------- | ---------------
