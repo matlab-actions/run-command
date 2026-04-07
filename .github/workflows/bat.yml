@@ -14,7 +14,7 @@ jobs:
           node-version: 24
       - name: Perform npm tasks
         run: npm run ci
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v7
         with:
           name: built-action
           path: |
@@ -28,11 +28,11 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest, macos-14]
     steps:
-      - uses: actions/download-artifact@v5
+      - uses: actions/download-artifact@v8
         with:
           name: built-action
       - name: Perform 'setup-matlab'
-        uses: matlab-actions/setup-matlab@v2
+        uses: matlab-actions/setup-matlab@v3
         with:
           products: MATLAB_Test
       - name: Greet the world in style
@@ -50,7 +50,7 @@ jobs:
       - name: Run MATLAB statement with quotes 1
         uses: ./
         with:
-          command: "eval(\"a = 1+2\"), assert(a == 3); eval('b = 3+4'), assert(b == 7);"
+          command: 'eval("a = 1+2"), assert(a == 3); eval(''b = 3+4''), assert(b == 7);'
       - name: Run MATLAB statement with quotes 2
         uses: ./
         with:
