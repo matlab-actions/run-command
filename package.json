@@ -13,7 +13,7 @@
         "deps": "bash ./scripts/setupdeps.sh",
         "package": "ncc build --minify",
         "test": "NODE_OPTIONS='--experimental-vm-modules' jest --passWithNoTests",
-        "all": "npm run format && npm test && npm run build && npm run package",
+        "all": "npm run format-check && npm test && npm run build && npm run package",
         "ci": "npm run clean && npm ci && npm run deps && npm run all"
     },
     "files": [
