@@ -34,15 +34,9 @@ async function run() {
         .finally(() => {
             const runnerTemp = process.env.RUNNER_TEMP || "";
             const runId = process.env.GITHUB_RUN_ID || "";
-            const actionName = process.env.GITHUB_ACTION || "";
 
-            buildSummary.processAndAddBuildSummary(runnerTemp, runId, actionName);
-            testResultsSummary.processAndAddTestSummary(
-                runnerTemp,
-                runId,
-                actionName,
-                workspaceDir,
-            );
+            buildSummary.processAndAddBuildSummary(runnerTemp, runId);
+            testResultsSummary.processAndAddTestSummary(runnerTemp, runId, workspaceDir);
             core.summary.write();
         });
 }
