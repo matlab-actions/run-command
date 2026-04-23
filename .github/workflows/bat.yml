@@ -107,7 +107,7 @@ jobs:
 
       #       plan = buildplan(localfunctions);
       #       plan("preMadeTest") = TestTask;
-            
+
       #       plan.DefaultTasks = "preMadeTest";
       #       end
       #     _EOF
