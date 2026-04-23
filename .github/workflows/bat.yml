@@ -35,6 +35,10 @@ jobs:
         uses: matlab-actions/setup-matlab@v3
         with:
           products: MATLAB_Test
+      - name: run tests
+        uses: ./
+        with:
+          command: 'runtests("sample\TheTruth.m"); runtests("sample\TheTruth.m");'
       - name: Greet the world in style
         uses: ./
         with:
