@@ -37,8 +37,7 @@ jobs:
       - name: Perform npm tasks
         run: npm run ci
 
-      # Generate signed attestations for workflow artifacts
-      - name: Attest build provenance
+      - name: Generate signed attestations for workflow artifacts
         uses: actions/attest@v4
         with:
           subject-path: dist/bin/**/run-matlab-command*
