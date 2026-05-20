@@ -37,6 +37,12 @@ jobs:
       - name: Perform npm tasks
         run: npm run ci
 
+      # Generate signed attestations for workflow artifacts
+      - name: Attest build provenance
+        uses: actions/attest@v4
+        with:
+          subject-path: dist/bin/**/run-matlab-command*
+
       # Finally, create a detached commit containing the built artifacts and tag
       # it with the release. Note: the fact that the branch is locally updated
       # will not be relayed (pushed) to origin
