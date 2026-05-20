@@ -4,6 +4,9 @@ on:
     types: published
 permissions:
   contents: write
+  id-token: write
+  attestations: write
+  artifact-metadata: write
 
 jobs:
   build:
