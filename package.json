@@ -1,7 +1,7 @@
 {
     "name": "run-matlab-command-action",
     "author": "The MathWorks, Inc.",
-    "version": "3.2.0",
+    "version": "3.2.1",
     "description": "",
     "type": "module",
     "main": "lib/index.js",
