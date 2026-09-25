@@ -32,8 +32,9 @@ jobs:
         with:
           name: built-action
       - name: Perform 'setup-matlab'
-        uses: matlab-actions/setup-matlab@a0180c939fb1a28de13f44f7b778b912384ced1f # v3.0.1
+        uses: matlab-actions/setup-matlab@f9e43010f1ae678f7cfa0542fe2a4f60f7d1ad8d # v3.1.0
         with:
+          release: latest-including-prerelease
           products: MATLAB_Test
       - name: Greet the world in style
         uses: ./
